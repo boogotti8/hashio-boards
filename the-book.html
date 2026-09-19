@@ -10,7 +10,36 @@
    letter-spacing:.045em; color:#c4b5fd; text-transform:uppercase; }
  table td { font-size:12.5px; }
  .zchip { display:inline-block; border-radius:7px; padding:2px 7px; font-size:10.5px; font-weight:700; }
-</style></head><body><div class="wrap">
+</style><style>
+/* hx-refresh: the floating "Refresh data" control (one per page). */
+.hx-btn { position: fixed; top: 16px; right: 18px; z-index: 50;
+          display: inline-flex; align-items: center; gap: 7px;
+          background: #131a28; color: #cdd7e6; border: 1px solid #2c3850;
+          border-radius: 10px; padding: 8px 13px;
+          font-family: DejaVu Sans Mono, Liberation Mono, monospace;
+          font-size: 12.5px; font-weight: 700; letter-spacing: .04em; cursor: pointer;
+          box-shadow: 0 10px 26px rgba(0,0,0,.5); transition: background .15s, border-color .15s; }
+.hx-btn:hover { background: #182234; border-color: #3d4f70; }
+.hx-btn:active { background: #1d2942; }
+.hx-btn:disabled { opacity: .72; cursor: default; }
+.hx-btn .ic { display: inline-block; font-size: 14.5px; line-height: 1; }
+.hx-btn.spin .ic { animation: hxspin .75s linear infinite; }
+@keyframes hxspin { to { transform: rotate(360deg); } }
+.hx-toast { position: fixed; top: 58px; right: 18px; z-index: 60; max-width: 330px;
+            background: #131a28; border: 1px solid #2c3850; border-radius: 11px;
+            padding: 10px 14px; font-size: 12.4px; line-height: 1.5; color: #b6c0d2;
+            box-shadow: 0 14px 34px rgba(0,0,0,.55); opacity: 0; transform: translateY(-6px);
+            pointer-events: none; transition: opacity .18s ease, transform .18s ease; }
+.hx-toast.show { opacity: 1; transform: translateY(0); }
+.hx-toast.err { border-color: rgba(255,107,138,.5); color: #ff829f; }
+@media (max-width: 820px) {
+  .hx-btn { top: auto; bottom: 15px; right: 15px; }
+  .hx-toast { top: auto; bottom: 64px; right: 15px; left: 15px; max-width: none; }
+}
+</style></head><body><button class="hx-btn" id="hx-refresh" type="button" title="Re-check the published board">
+  <span class="ic">&#8635;</span><span class="tx">Refresh data</span></button>
+<div class="hx-toast" id="hx-toast" role="status" aria-live="polite"></div>
+<div id="hx-wrap"><div class="wrap">
 <div class="mono" style="font-size:11px;letter-spacing:.18em;color:#93a1bb">THE BOOK</div>
 <div style="font-size:33px;font-weight:800;letter-spacing:-0.4px;margin:6px 0 10px">
  Every position &mdash; the Monitor is the book, the Regime is the framework</div>
@@ -38,12 +67,12 @@
    THE WHOLE-BOOK POSTURE LADDER</div>
   <div style="font-size:22px;font-weight:800;color:#9fb0c9;margin-top:3px">HOLD</div>
   <div style="font-size:12.5px;color:#93a1bb;margin-top:3px">
-   the book&rsquo;s median holding sits at <b>+11</b> of &plusmn;100
+   the book&rsquo;s median holding sits at <b>+10</b> of &plusmn;100
    (fair / hold) &middot; 10 measured &middot; 0 unmeasured
    &middot; 6 tape-governed &middot; 9 weekly-green
-   &middot; <b style="color:#ff5b6e">4 confirmed breaks</b>
+   &middot; <b style="color:#ff5b6e">1 confirmed break</b>
   </div>
-  <div style="font-size:12px;margin-top:5px"><b style="color:#4ade80">ACCUMULATE 3</b> &middot; <b style="color:#ff6b6b">DE-RISK 1</b> &middot; <b style="color:#9fb0c9">HOLD 2</b> &middot; <b style="color:#f0b357">TRIM 4</b></div>
+  <div style="font-size:12px;margin-top:5px"><b style="color:#4ade80">ACCUMULATE 3</b> &middot; <b style="color:#ff6b6b">DE-RISK 1</b> &middot; <b style="color:#9fb0c9">HOLD 3</b> &middot; <b style="color:#f0b357">TRIM 3</b></div>
  </div>
  <div style="width:300px;border-radius:14px;padding:13px 16px;background:#ff5b6e10;border:1px solid #ff5b6e33">
   <div class="mono" style="font-size:10.5px;letter-spacing:.1em;color:#93a1bb">THE REGIME (THE FRAMEWORK)</div>
@@ -104,70 +133,67 @@
 <text x="1094.0" y="257" font-size="12" font-weight="bold" fill="#c3cee0" text-anchor="middle">+100</text>
 <text x="40" y="226" font-size="10.5" fill="#93a1bb" text-anchor="start">expensive</text>
 <text x="1100" y="226" font-size="10.5" fill="#93a1bb" text-anchor="end">cheap</text>
-<ellipse cx="126.3" cy="232" rx="9.0" ry="13" fill="#a78bfa" opacity="0.10"/>
-<circle cx="126.3" cy="232" r="8.5" fill="#a78bfa" stroke="#0a0e15" stroke-width="1.8"/>
-<path d="M 126.3 202 l -6.5 10 h 13 z" fill="#4ade80"/>
-<ellipse cx="397.1" cy="232" rx="9.0" ry="13" fill="#ff6b6b" opacity="0.10"/>
-<circle cx="397.1" cy="232" r="8.5" fill="#ff6b6b" stroke="#0a0e15" stroke-width="1.8"/>
-<path d="M 397.1 202 l -6.5 10 h 13 z" fill="#4ade80"/>
-<ellipse cx="477.1" cy="232" rx="9.0" ry="13" fill="#4ade80" opacity="0.10"/>
-<circle cx="477.1" cy="232" r="8.5" fill="#4ade80" stroke="#0a0e15" stroke-width="1.8"/>
-<path d="M 477.1 202 l -6.5 10 h 13 z" fill="#4ade80"/>
-<ellipse cx="552.8" cy="232" rx="9.0" ry="13" fill="#a78bfa" opacity="0.10"/>
-<circle cx="552.8" cy="232" r="14" fill="none" stroke="#ff5b6e" stroke-width="1.5" stroke-dasharray="4 4"/>
-<circle cx="552.8" cy="232" r="8.5" fill="#a78bfa" stroke="#0a0e15" stroke-width="1.8"/>
-<path d="M 552.8 202 l -6.5 10 h 13 z" fill="#4ade80"/>
-<ellipse cx="566.7" cy="232" rx="9.0" ry="13" fill="#4ade80" opacity="0.10"/>
-<circle cx="566.7" cy="232" r="8.5" fill="#4ade80" stroke="#0a0e15" stroke-width="1.8"/>
-<path d="M 566.7 202 l -6.5 10 h 13 z" fill="#4ade80"/>
-<ellipse cx="629.7" cy="232" rx="9.0" ry="13" fill="#4ade80" opacity="0.10"/>
-<circle cx="629.7" cy="232" r="8.5" fill="#4ade80" stroke="#0a0e15" stroke-width="1.8"/>
-<path d="M 629.7 202 l -6.5 10 h 13 z" fill="#4ade80"/>
-<ellipse cx="630.9" cy="232" rx="9.0" ry="13" fill="#22d3ee" opacity="0.10"/>
-<circle cx="630.9" cy="232" r="8.5" fill="#22d3ee" stroke="#0a0e15" stroke-width="1.8"/>
-<path d="M 630.9 202 l -6.5 10 h 13 z" fill="#4ade80"/>
-<ellipse cx="701.0" cy="232" rx="9.0" ry="13" fill="#a78bfa" opacity="0.10"/>
-<circle cx="701.0" cy="232" r="14" fill="none" stroke="#ff5b6e" stroke-width="1.5" stroke-dasharray="4 4"/>
-<circle cx="701.0" cy="232" r="8.5" fill="#a78bfa" stroke="#0a0e15" stroke-width="1.8"/>
-<path d="M 701.0 212 l -6.5 -10 h 13 z" fill="#ff6b6b"/>
-<ellipse cx="760.9" cy="232" rx="9.0" ry="13" fill="#a78bfa" opacity="0.10"/>
-<circle cx="760.9" cy="232" r="14" fill="none" stroke="#ff5b6e" stroke-width="1.5" stroke-dasharray="4 4"/>
-<circle cx="760.9" cy="232" r="8.5" fill="#a78bfa" stroke="#0a0e15" stroke-width="1.8"/>
-<path d="M 760.9 202 l -6.5 10 h 13 z" fill="#4ade80"/>
-<ellipse cx="828.8" cy="232" rx="9.0" ry="13" fill="#4ade80" opacity="0.10"/>
-<circle cx="828.8" cy="232" r="14" fill="none" stroke="#ff5b6e" stroke-width="1.5" stroke-dasharray="4 4"/>
-<circle cx="828.8" cy="232" r="8.5" fill="#4ade80" stroke="#0a0e15" stroke-width="1.8"/>
-<path d="M 828.8 202 l -6.5 10 h 13 z" fill="#4ade80"/>
-<line x1="126.3" y1="244" x2="126.3" y2="262" stroke="#33405a" stroke-width="0.9"/>
-<rect x="84.7" y="263.0" width="83.2" height="19" rx="6" fill="#131a28" opacity="0.9" stroke="#a78bfa" stroke-width="1"/>
-<text x="126.3" y="276.0" font-size="13" font-weight="bold" fill="#e7edf8" text-anchor="middle">AAPL -85</text>
-<line x1="397.1" y1="244" x2="397.1" y2="262" stroke="#33405a" stroke-width="0.9"/>
-<rect x="359.7" y="263.0" width="74.8" height="19" rx="6" fill="#131a28" opacity="0.9" stroke="#ff6b6b" stroke-width="1"/>
-<text x="397.1" y="276.0" font-size="13" font-weight="bold" fill="#e7edf8" text-anchor="middle">NDX -33</text>
-<line x1="477.1" y1="244" x2="477.1" y2="286" stroke="#33405a" stroke-width="0.9"/>
-<rect x="439.7" y="287.0" width="74.8" height="19" rx="6" fill="#131a28" opacity="0.9" stroke="#4ade80" stroke-width="1"/>
-<text x="477.1" y="300.0" font-size="13" font-weight="bold" fill="#e7edf8" text-anchor="middle">ETH -18</text>
-<line x1="552.8" y1="244" x2="552.8" y2="262" stroke="#33405a" stroke-width="0.9"/>
-<rect x="515.4" y="263.0" width="74.8" height="19" rx="6" fill="#131a28" opacity="0.9" stroke="#a78bfa" stroke-width="1"/>
-<text x="552.8" y="276.0" font-size="13" font-weight="bold" fill="#e7edf8" text-anchor="middle">TSLA -3</text>
-<line x1="566.7" y1="244" x2="566.7" y2="286" stroke="#33405a" stroke-width="0.9"/>
-<rect x="533.5" y="287.0" width="66.4" height="19" rx="6" fill="#131a28" opacity="0.9" stroke="#4ade80" stroke-width="1"/>
-<text x="566.7" y="300.0" font-size="13" font-weight="bold" fill="#e7edf8" text-anchor="middle">SOL -1</text>
-<line x1="629.7" y1="244" x2="629.7" y2="310" stroke="#33405a" stroke-width="0.9"/>
-<rect x="592.3" y="311.0" width="74.8" height="19" rx="6" fill="#131a28" opacity="0.9" stroke="#4ade80" stroke-width="1"/>
-<text x="629.7" y="324.0" font-size="13" font-weight="bold" fill="#e7edf8" text-anchor="middle">BTC +11</text>
-<path d="M 630.9 244 L 630.9 256 L 648.2 256" fill="none" stroke="#33405a" stroke-width="0.9"/>
-<rect x="598.2" y="263.0" width="100.0" height="19" rx="6" fill="#131a28" opacity="0.9" stroke="#22d3ee" stroke-width="1"/>
-<text x="648.2" y="276.0" font-size="13" font-weight="bold" fill="#e7edf8" text-anchor="middle">CRYPTO +12</text>
-<line x1="701.0" y1="244" x2="701.0" y2="286" stroke="#33405a" stroke-width="0.9"/>
-<rect x="659.4" y="287.0" width="83.2" height="19" rx="6" fill="#131a28" opacity="0.9" stroke="#a78bfa" stroke-width="1"/>
-<text x="701.0" y="300.0" font-size="13" font-weight="bold" fill="#e7edf8" text-anchor="middle">HIMS +25</text>
-<line x1="760.9" y1="244" x2="760.9" y2="262" stroke="#33405a" stroke-width="0.9"/>
-<rect x="719.3" y="263.0" width="83.2" height="19" rx="6" fill="#131a28" opacity="0.9" stroke="#a78bfa" stroke-width="1"/>
-<text x="760.9" y="276.0" font-size="13" font-weight="bold" fill="#e7edf8" text-anchor="middle">COIN +36</text>
-<line x1="828.8" y1="244" x2="828.8" y2="286" stroke="#33405a" stroke-width="0.9"/>
-<rect x="791.4" y="287.0" width="74.8" height="19" rx="6" fill="#131a28" opacity="0.9" stroke="#4ade80" stroke-width="1"/>
-<text x="828.8" y="300.0" font-size="13" font-weight="bold" fill="#e7edf8" text-anchor="middle">SUI +49</text>
+<ellipse cx="130.6" cy="232" rx="9.0" ry="13" fill="#a78bfa" opacity="0.10"/>
+<circle cx="130.6" cy="232" r="8.5" fill="#a78bfa" stroke="#0a0e15" stroke-width="1.8"/>
+<path d="M 130.6 202 l -6.5 10 h 13 z" fill="#4ade80"/>
+<ellipse cx="380.8" cy="232" rx="9.0" ry="13" fill="#ff6b6b" opacity="0.10"/>
+<circle cx="380.8" cy="232" r="8.5" fill="#ff6b6b" stroke="#0a0e15" stroke-width="1.8"/>
+<path d="M 380.8 202 l -6.5 10 h 13 z" fill="#4ade80"/>
+<ellipse cx="470.8" cy="232" rx="9.0" ry="13" fill="#4ade80" opacity="0.10"/>
+<circle cx="470.8" cy="232" r="8.5" fill="#4ade80" stroke="#0a0e15" stroke-width="1.8"/>
+<path d="M 470.8 202 l -6.5 10 h 13 z" fill="#4ade80"/>
+<ellipse cx="561.7" cy="232" rx="9.0" ry="13" fill="#a78bfa" opacity="0.10"/>
+<circle cx="561.7" cy="232" r="14" fill="none" stroke="#ff5b6e" stroke-width="1.5" stroke-dasharray="4 4"/>
+<circle cx="561.7" cy="232" r="8.5" fill="#a78bfa" stroke="#0a0e15" stroke-width="1.8"/>
+<path d="M 561.7 202 l -6.5 10 h 13 z" fill="#4ade80"/>
+<ellipse cx="580.9" cy="232" rx="9.0" ry="13" fill="#4ade80" opacity="0.10"/>
+<circle cx="580.9" cy="232" r="8.5" fill="#4ade80" stroke="#0a0e15" stroke-width="1.8"/>
+<path d="M 580.9 202 l -6.5 10 h 13 z" fill="#4ade80"/>
+<ellipse cx="624.5" cy="232" rx="9.0" ry="13" fill="#4ade80" opacity="0.10"/>
+<circle cx="624.5" cy="232" r="8.5" fill="#4ade80" stroke="#0a0e15" stroke-width="1.8"/>
+<path d="M 624.5 202 l -6.5 10 h 13 z" fill="#4ade80"/>
+<ellipse cx="632.3" cy="232" rx="9.0" ry="13" fill="#22d3ee" opacity="0.10"/>
+<circle cx="632.3" cy="232" r="8.5" fill="#22d3ee" stroke="#0a0e15" stroke-width="1.8"/>
+<path d="M 632.3 202 l -6.5 10 h 13 z" fill="#4ade80"/>
+<ellipse cx="697.7" cy="232" rx="9.0" ry="13" fill="#a78bfa" opacity="0.10"/>
+<circle cx="697.7" cy="232" r="8.5" fill="#a78bfa" stroke="#0a0e15" stroke-width="1.8"/>
+<path d="M 697.7 202 l -6.5 10 h 13 z" fill="#4ade80"/>
+<ellipse cx="698.8" cy="232" rx="9.0" ry="13" fill="#a78bfa" opacity="0.10"/>
+<circle cx="698.8" cy="232" r="8.5" fill="#a78bfa" stroke="#0a0e15" stroke-width="1.8"/>
+<path d="M 698.8 212 l -6.5 -10 h 13 z" fill="#ff6b6b"/>
+<ellipse cx="802.8" cy="232" rx="9.0" ry="13" fill="#4ade80" opacity="0.10"/>
+<circle cx="802.8" cy="232" r="8.5" fill="#4ade80" stroke="#0a0e15" stroke-width="1.8"/>
+<path d="M 802.8 202 l -6.5 10 h 13 z" fill="#4ade80"/>
+<line x1="130.6" y1="244" x2="130.6" y2="262" stroke="#33405a" stroke-width="0.9"/>
+<rect x="89.0" y="263.0" width="83.2" height="19" rx="6" fill="#131a28" opacity="0.9" stroke="#a78bfa" stroke-width="1"/>
+<text x="130.6" y="276.0" font-size="13" font-weight="bold" fill="#e7edf8" text-anchor="middle">AAPL -84</text>
+<line x1="380.8" y1="244" x2="380.8" y2="262" stroke="#33405a" stroke-width="0.9"/>
+<rect x="343.4" y="263.0" width="74.8" height="19" rx="6" fill="#131a28" opacity="0.9" stroke="#ff6b6b" stroke-width="1"/>
+<text x="380.8" y="276.0" font-size="13" font-weight="bold" fill="#e7edf8" text-anchor="middle">NDX -36</text>
+<line x1="470.8" y1="244" x2="470.8" y2="262" stroke="#33405a" stroke-width="0.9"/>
+<rect x="433.4" y="263.0" width="74.8" height="19" rx="6" fill="#131a28" opacity="0.9" stroke="#4ade80" stroke-width="1"/>
+<text x="470.8" y="276.0" font-size="13" font-weight="bold" fill="#e7edf8" text-anchor="middle">ETH -19</text>
+<line x1="561.7" y1="244" x2="561.7" y2="262" stroke="#33405a" stroke-width="0.9"/>
+<rect x="524.3" y="263.0" width="74.8" height="19" rx="6" fill="#131a28" opacity="0.9" stroke="#a78bfa" stroke-width="1"/>
+<text x="561.7" y="276.0" font-size="13" font-weight="bold" fill="#e7edf8" text-anchor="middle">TSLA -2</text>
+<line x1="580.9" y1="244" x2="580.9" y2="286" stroke="#33405a" stroke-width="0.9"/>
+<rect x="547.7" y="287.0" width="66.4" height="19" rx="6" fill="#131a28" opacity="0.9" stroke="#4ade80" stroke-width="1"/>
+<text x="580.9" y="300.0" font-size="13" font-weight="bold" fill="#e7edf8" text-anchor="middle">SOL +2</text>
+<line x1="624.5" y1="244" x2="624.5" y2="310" stroke="#33405a" stroke-width="0.9"/>
+<rect x="587.1" y="311.0" width="74.8" height="19" rx="6" fill="#131a28" opacity="0.9" stroke="#4ade80" stroke-width="1"/>
+<text x="624.5" y="324.0" font-size="13" font-weight="bold" fill="#e7edf8" text-anchor="middle">BTC +10</text>
+<path d="M 632.3 244 L 632.3 256 L 657.1 256" fill="none" stroke="#33405a" stroke-width="0.9"/>
+<rect x="607.1" y="263.0" width="100.0" height="19" rx="6" fill="#131a28" opacity="0.9" stroke="#22d3ee" stroke-width="1"/>
+<text x="657.1" y="276.0" font-size="13" font-weight="bold" fill="#e7edf8" text-anchor="middle">CRYPTO +12</text>
+<line x1="697.7" y1="244" x2="697.7" y2="286" stroke="#33405a" stroke-width="0.9"/>
+<rect x="656.1" y="287.0" width="83.2" height="19" rx="6" fill="#131a28" opacity="0.9" stroke="#a78bfa" stroke-width="1"/>
+<text x="697.7" y="300.0" font-size="13" font-weight="bold" fill="#e7edf8" text-anchor="middle">COIN +24</text>
+<path d="M 698.8 244 L 698.8 256 L 756.7 256" fill="none" stroke="#33405a" stroke-width="0.9"/>
+<rect x="715.1" y="263.0" width="83.2" height="19" rx="6" fill="#131a28" opacity="0.9" stroke="#a78bfa" stroke-width="1"/>
+<text x="756.7" y="276.0" font-size="13" font-weight="bold" fill="#e7edf8" text-anchor="middle">HIMS +25</text>
+<line x1="802.8" y1="244" x2="802.8" y2="286" stroke="#33405a" stroke-width="0.9"/>
+<rect x="765.4" y="287.0" width="74.8" height="19" rx="6" fill="#131a28" opacity="0.9" stroke="#4ade80" stroke-width="1"/>
+<text x="802.8" y="300.0" font-size="13" font-weight="bold" fill="#e7edf8" text-anchor="middle">SUI +44</text>
 <text x="46" y="460" font-size="12" font-weight="bold" fill="#93a1bb">&#8592; EXPENSIVE (get out)</text>
 <text x="1094" y="460" font-size="12" font-weight="bold" fill="#93a1bb" text-anchor="end">CHEAP (back up the truck) &#8594;</text>
 <text x="570.0" y="460" font-size="11.5" fill="#93a1bb" text-anchor="middle">THE MASTER READ &mdash; value + cycle, per asset</text>
@@ -190,7 +216,7 @@
  <div class="mono" style="font-size:10.5px;letter-spacing:.14em;color:#c4b5fd;margin-top:12px">
   REST OF THE BOOK &mdash; NO CHEAP/EXPENSIVE GAUGE EXISTS FOR THESE YET, SO THE TAPE DECIDES
   (WEEKLY &#9650;&#9660; + LONG-TERM STATE)</div>
- <div style="margin-top:2px"><span style="display:inline-block;background:#131a28;border:1px solid #232d40;border-radius:11px;padding:6px 10px;margin:3px 5px 0 0;font-size:12.5px"><b>EUA</b>&nbsp;<span style='color:#4ade80'>&#9650;</span><span class="mono" style="font-size:10.5px;color:#93a1bb"> -1.8% 1w &middot; <span style="color:#4ade80">above the floor</span></span></span><span style="display:inline-block;background:#131a28;border:1px solid #232d40;border-radius:11px;padding:6px 10px;margin:3px 5px 0 0;font-size:12.5px"><b>DEEP</b>&nbsp;<span style='color:#ff6b6b'>&#9660;</span><span class="mono" style="font-size:10.5px;color:#93a1bb"> -0.5% 1w &middot; <span style="color:#4ade80">above the floor</span></span></span><span style="display:inline-block;background:#131a28;border:1px solid #232d40;border-radius:11px;padding:6px 10px;margin:3px 5px 0 0;font-size:12.5px"><b>TAN</b>&nbsp;<span style='color:#ff6b6b'>&#9660;</span><span class="mono" style="font-size:10.5px;color:#93a1bb"> -1.4% 1w &middot; <span style="color:#ff6b6b">below the floor</span></span></span><span style="display:inline-block;background:#131a28;border:1px solid #232d40;border-radius:11px;padding:6px 10px;margin:3px 5px 0 0;font-size:12.5px"><b>ROBO</b>&nbsp;<span style='color:#ff6b6b'>&#9660;</span><span class="mono" style="font-size:10.5px;color:#93a1bb"> +1.0% 1w &middot; <span style="color:#4ade80">above the floor</span></span></span><span style="display:inline-block;background:#131a28;border:1px solid #232d40;border-radius:11px;padding:6px 10px;margin:3px 5px 0 0;font-size:12.5px"><b>KOID</b>&nbsp;<span style='color:#ff6b6b'>&#9660;</span><span class="mono" style="font-size:10.5px;color:#93a1bb"> -0.3% 1w &middot; <span style="color:#ff6b6b">below the floor</span></span></span><span style="display:inline-block;background:#131a28;border:1px solid #232d40;border-radius:11px;padding:6px 10px;margin:3px 5px 0 0;font-size:12.5px"><b>CRCL</b>&nbsp;<span style='color:#4ade80'>&#9650;</span><span class="mono" style="font-size:10.5px;color:#93a1bb"> -5.8% 1w &middot; <span style="color:#ff6b6b">below the floor</span></span></span>
+ <div style="margin-top:2px"><span style="display:inline-block;background:#131a28;border:1px solid #232d40;border-radius:11px;padding:6px 10px;margin:3px 5px 0 0;font-size:12.5px"><b>EUA</b>&nbsp;<span style='color:#4ade80'>&#9650;</span><span class="mono" style="font-size:10.5px;color:#93a1bb"> -0.5% 1w &middot; <span style="color:#4ade80">above the floor</span></span></span><span style="display:inline-block;background:#131a28;border:1px solid #232d40;border-radius:11px;padding:6px 10px;margin:3px 5px 0 0;font-size:12.5px"><b>DEEP</b>&nbsp;<span style='color:#ff6b6b'>&#9660;</span><span class="mono" style="font-size:10.5px;color:#93a1bb"> -2.1% 1w &middot; <span style="color:#4ade80">above the floor</span></span></span><span style="display:inline-block;background:#131a28;border:1px solid #232d40;border-radius:11px;padding:6px 10px;margin:3px 5px 0 0;font-size:12.5px"><b>TAN</b>&nbsp;<span style='color:#ff6b6b'>&#9660;</span><span class="mono" style="font-size:10.5px;color:#93a1bb"> -3.2% 1w &middot; <span style="color:#ff6b6b">below the floor</span></span></span><span style="display:inline-block;background:#131a28;border:1px solid #232d40;border-radius:11px;padding:6px 10px;margin:3px 5px 0 0;font-size:12.5px"><b>ROBO</b>&nbsp;<span style='color:#ff6b6b'>&#9660;</span><span class="mono" style="font-size:10.5px;color:#93a1bb"> -0.8% 1w &middot; <span style="color:#4ade80">above the floor</span></span></span><span style="display:inline-block;background:#131a28;border:1px solid #232d40;border-radius:11px;padding:6px 10px;margin:3px 5px 0 0;font-size:12.5px"><b>KOID</b>&nbsp;<span style='color:#ff6b6b'>&#9660;</span><span class="mono" style="font-size:10.5px;color:#93a1bb"> -1.1% 1w &middot; <span style="color:#ff6b6b">below the floor</span></span></span><span style="display:inline-block;background:#131a28;border:1px solid #232d40;border-radius:11px;padding:6px 10px;margin:3px 5px 0 0;font-size:12.5px"><b>CRCL</b>&nbsp;<span style='color:#4ade80'>&#9650;</span><span class="mono" style="font-size:10.5px;color:#93a1bb"> +1.3% 1w &middot; <span style="color:#4ade80">above the floor</span></span></span>
   <span style="display:inline-block;background:#1d1733;border:1px solid #3a2f5c;border-radius:11px;
    padding:6px 10px;margin:3px 0 0 4px;font-size:12px;font-weight:700;color:#a78bfa">
    EXPONENTIAL AGE BASKET &middot; 13 constituents · 7 weekly-green</span>
@@ -202,7 +228,7 @@
 <div style="font-size:21px;font-weight:800;margin:24px 0 4px">The posture ladder &mdash; where the book sits</div>
 <div class="mono" style="font-size:10.5px;color:#93a1bb;margin-bottom:4px">
  THE FIVE ZONES OF THE SCALE, WITH EVERY MEASURED HOLDING IN ITS PLACE</div>
-<div style="display:flex;gap:8px;margin-top:6px"><div style="flex:1;border-radius:12px;padding:10px 11px;background:#331a20;border:1px solid #ff6b6b33"><div style="font-size:12.5px;font-weight:800;color:#ff6b6b;letter-spacing:.03em">DE-RISK</div><div class="mono" style="font-size:9.5px;color:#ff6b6b;opacity:.85;margin-top:1px">-100 to -50 &middot; expensive / get out</div><div style="font-size:12px;margin-top:6px;color:#e7edf8">AAPL</div></div><div style="flex:1;border-radius:12px;padding:10px 11px;background:#302516;border:1px solid #f0b35733"><div style="font-size:12.5px;font-weight:800;color:#f0b357;letter-spacing:.03em">TRIM</div><div class="mono" style="font-size:9.5px;color:#f0b357;opacity:.85;margin-top:1px">-50 to +0 &middot; expensive / trim</div><div style="font-size:12px;margin-top:6px;color:#e7edf8">SOL TSLA ETH NDX</div></div><div style="flex:1;border-radius:12px;padding:10px 11px;background:#1d2634;border:1px solid #9fb0c933"><div style="font-size:12.5px;font-weight:800;color:#9fb0c9;letter-spacing:.03em">HOLD</div><div class="mono" style="font-size:9.5px;color:#9fb0c9;opacity:.85;margin-top:1px">+0 to +20 &middot; fair / hold</div><div style="font-size:12px;margin-top:6px;color:#e7edf8">CRYPTO BTC</div><div class="mono" style="font-size:10px;letter-spacing:.08em;color:#0a0e15;background:#9fb0c9;border-radius:6px;padding:2px 6px;display:inline-block;margin-top:5px">THE BOOK SITS HERE &middot; MEDIAN +11</div></div><div style="flex:1;border-radius:12px;padding:10px 11px;background:#12291e;border:1px solid #4ade8033"><div style="font-size:12.5px;font-weight:800;color:#4ade80;letter-spacing:.03em">ACCUMULATE</div><div class="mono" style="font-size:9.5px;color:#4ade80;opacity:.85;margin-top:1px">+20 to +50 &middot; cheap / accumulate</div><div style="font-size:12px;margin-top:6px;color:#e7edf8">SUI COIN HIMS</div></div><div style="flex:1;border-radius:12px;padding:10px 11px;background:#221c3d;border:1px solid #a78bfa33"><div style="font-size:12.5px;font-weight:800;color:#a78bfa;letter-spacing:.03em">BACK UP THE TRUCK</div><div class="mono" style="font-size:9.5px;color:#a78bfa;opacity:.85;margin-top:1px">+50 to +100 &middot; cheap / back up the truck</div><div style="font-size:12px;margin-top:6px;color:#e7edf8"><span style='opacity:.5'>none</span></div></div></div>
+<div style="display:flex;gap:8px;margin-top:6px"><div style="flex:1;border-radius:12px;padding:10px 11px;background:#331a20;border:1px solid #ff6b6b33"><div style="font-size:12.5px;font-weight:800;color:#ff6b6b;letter-spacing:.03em">DE-RISK</div><div class="mono" style="font-size:9.5px;color:#ff6b6b;opacity:.85;margin-top:1px">-100 to -50 &middot; expensive / get out</div><div style="font-size:12px;margin-top:6px;color:#e7edf8">AAPL</div></div><div style="flex:1;border-radius:12px;padding:10px 11px;background:#302516;border:1px solid #f0b35733"><div style="font-size:12.5px;font-weight:800;color:#f0b357;letter-spacing:.03em">TRIM</div><div class="mono" style="font-size:9.5px;color:#f0b357;opacity:.85;margin-top:1px">-50 to +0 &middot; expensive / trim</div><div style="font-size:12px;margin-top:6px;color:#e7edf8">TSLA ETH NDX</div></div><div style="flex:1;border-radius:12px;padding:10px 11px;background:#1d2634;border:1px solid #9fb0c933"><div style="font-size:12.5px;font-weight:800;color:#9fb0c9;letter-spacing:.03em">HOLD</div><div class="mono" style="font-size:9.5px;color:#9fb0c9;opacity:.85;margin-top:1px">+0 to +20 &middot; fair / hold</div><div style="font-size:12px;margin-top:6px;color:#e7edf8">CRYPTO BTC SOL</div><div class="mono" style="font-size:10px;letter-spacing:.08em;color:#0a0e15;background:#9fb0c9;border-radius:6px;padding:2px 6px;display:inline-block;margin-top:5px">THE BOOK SITS HERE &middot; MEDIAN +10</div></div><div style="flex:1;border-radius:12px;padding:10px 11px;background:#12291e;border:1px solid #4ade8033"><div style="font-size:12.5px;font-weight:800;color:#4ade80;letter-spacing:.03em">ACCUMULATE</div><div class="mono" style="font-size:9.5px;color:#4ade80;opacity:.85;margin-top:1px">+20 to +50 &middot; cheap / accumulate</div><div style="font-size:12px;margin-top:6px;color:#e7edf8">SUI HIMS COIN</div></div><div style="flex:1;border-radius:12px;padding:10px 11px;background:#221c3d;border:1px solid #a78bfa33"><div style="font-size:12.5px;font-weight:800;color:#a78bfa;letter-spacing:.03em">BACK UP THE TRUCK</div><div class="mono" style="font-size:9.5px;color:#a78bfa;opacity:.85;margin-top:1px">+50 to +100 &middot; cheap / back up the truck</div><div style="font-size:12px;margin-top:6px;color:#e7edf8"><span style='opacity:.5'>none</span></div></div></div>
 
 <div id="tearsheet" style="font-size:21px;font-weight:800;margin:26px 0 4px">
  The live positions tearsheet &mdash; entries, marks &amp; ITD</div>
@@ -210,16 +236,16 @@
  MARKS AND FLOORS ARE LIVE. ENTRY / ITD COME FROM /home/dietpi/the-book/entries.json &mdash; HAND-ENTERED, NEVER INVENTED.</div>
 <div style="background:#101724;border-radius:16px;padding:8px 10px;overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed">
 <tr style="text-align:left;color:#93a1bb;font-family:DejaVu Sans Mono,monospace;font-size:10px;letter-spacing:.05em"><th style="padding:6px 6px;width:13%">HOLDING</th><th style="width:8%">MARK</th><th style="width:7%">ENTRY</th><th style="width:6%">ITD</th><th style="width:6%">1W</th><th style="width:5%">WKLY</th><th style="width:8%">CHEAP &sigma;</th><th style="width:6%">SCORE</th><th style="width:13%">ZONE</th><th style="width:8%">FLOOR (200d)</th><th style="width:7%">TO FLOOR</th><th style="width:13%">MONITOR STATE</th></tr>
-<tr style="border-top:1px solid #1e2738"><td style="padding:7px 6px;font-weight:700;color:#e7edf8">SUI<div class="mono" style="font-size:9.5px;color:#7d8ba3">crypto</div></td><td>$0.81</td><td>—</td><td>—</td><td style="color:#4ade80">+15.3%</td><td><span style='color:#4ade80'>&#9650;</span></td><td>+1.0&sigma</td><td style="font-weight:800">+49</td><td style="color:#4ade80;font-weight:700;font-size:11.5px">ACCUMULATE</td><td>$0.84</td><td style="color:#ff6b6b">-3.8%</td><td style="font-size:11.5px"><span style="color:#ff5b6e;font-weight:700">confirmed break</span><div style="color:#7d8ba3;font-size:10.5px;margin-top:2px">+1.0&sigma; cheap &middot; below floor by 3.8%<div style="color:#ff5b6e;font-weight:700">price-confirmed break</div></div></td></tr>
-<tr style="border-top:1px solid #1e2738"><td style="padding:7px 6px;font-weight:700;color:#e7edf8">COIN<div class="mono" style="font-size:9.5px;color:#7d8ba3">equity</div></td><td>$173.97</td><td>—</td><td>—</td><td style="color:#4ade80">+1.0%</td><td><span style='color:#4ade80'>&#9650;</span></td><td>+0.7&sigma</td><td style="font-weight:800">+36</td><td style="color:#4ade80;font-weight:700;font-size:11.5px">ACCUMULATE</td><td>$189.55</td><td style="color:#ff6b6b">-8.2%</td><td style="font-size:11.5px"><span style="color:#ff5b6e;font-weight:700">confirmed break</span><div style="color:#7d8ba3;font-size:10.5px;margin-top:2px">+0.7&sigma; cheap &middot; below floor by 8.2%<div style="color:#ff5b6e;font-weight:700">price-confirmed break</div></div></td></tr>
-<tr style="border-top:1px solid #1e2738"><td style="padding:7px 6px;font-weight:700;color:#e7edf8">HIMS<div class="mono" style="font-size:9.5px;color:#7d8ba3">equity</div></td><td>$27.89</td><td>—</td><td>—</td><td style="color:#4ade80">+1.6%</td><td><span style='color:#ff6b6b'>&#9660;</span></td><td>+0.5&sigma</td><td style="font-weight:800">+25</td><td style="color:#4ade80;font-weight:700;font-size:11.5px">ACCUMULATE</td><td>$28.03</td><td style="color:#ff6b6b">-0.5%</td><td style="font-size:11.5px"><span style="color:#ff5b6e;font-weight:700">confirmed break</span><div style="color:#7d8ba3;font-size:10.5px;margin-top:2px">+0.5&sigma; cheap &middot; below floor by 0.5%<div style="color:#ff5b6e;font-weight:700">price-confirmed break</div></div></td></tr>
-<tr style="border-top:1px solid #1e2738"><td style="padding:7px 6px;font-weight:700;color:#e7edf8">CRYPTO<div class="mono" style="font-size:9.5px;color:#7d8ba3">sleeve</div></td><td>$246.29</td><td>—</td><td>—</td><td style="color:#4ade80">+10.5%</td><td><span style='color:#4ade80'>&#9650;</span></td><td>+0.3&sigma</td><td style="font-weight:800">+12</td><td style="color:#9fb0c9;font-weight:700;font-size:11.5px">HOLD</td><td>$196.81</td><td style="color:#4ade80">+25.1%</td><td style="font-size:11.5px"><span style="color:#4ade80;font-weight:700">above floor</span><div style="color:#7d8ba3;font-size:10.5px;margin-top:2px">+0.3&sigma; cheap &middot; above floor by 25.1%</div></td></tr>
-<tr style="border-top:1px solid #1e2738"><td style="padding:7px 6px;font-weight:700;color:#e7edf8">BTC<div class="mono" style="font-size:9.5px;color:#7d8ba3">crypto</div></td><td>$81,040</td><td>—</td><td>—</td><td style="color:#4ade80">+5.5%</td><td><span style='color:#4ade80'>&#9650;</span></td><td>+0.3&sigma</td><td style="font-weight:800">+11</td><td style="color:#9fb0c9;font-weight:700;font-size:11.5px">HOLD</td><td>$70,434</td><td style="color:#4ade80">+15.1%</td><td style="font-size:11.5px"><span style="color:#4ade80;font-weight:700">above floor</span><div style="color:#7d8ba3;font-size:10.5px;margin-top:2px">+0.3&sigma; cheap &middot; above floor by 15.1%</div></td></tr>
-<tr style="border-top:1px solid #1e2738"><td style="padding:7px 6px;font-weight:700;color:#e7edf8">SOL<div class="mono" style="font-size:9.5px;color:#7d8ba3">crypto</div></td><td>$113.48</td><td>—</td><td>—</td><td style="color:#4ade80">+14.3%</td><td><span style='color:#4ade80'>&#9650;</span></td><td>+0.1&sigma</td><td style="font-weight:800">-1</td><td style="color:#f0b357;font-weight:700;font-size:11.5px">TRIM</td><td>$83.59</td><td style="color:#4ade80">+35.8%</td><td style="font-size:11.5px"><span style="color:#4ade80;font-weight:700">above floor</span><div style="color:#7d8ba3;font-size:10.5px;margin-top:2px">+0.1&sigma; cheap &middot; above floor by 35.8%</div></td></tr>
-<tr style="border-top:1px solid #1e2738"><td style="padding:7px 6px;font-weight:700;color:#e7edf8">TSLA<div class="mono" style="font-size:9.5px;color:#7d8ba3">equity</div></td><td>$366.20</td><td>—</td><td>—</td><td style="color:#4ade80">+0.7%</td><td><span style='color:#4ade80'>&#9650;</span></td><td>+0.0&sigma</td><td style="font-weight:800">-3</td><td style="color:#f0b357;font-weight:700;font-size:11.5px">TRIM</td><td>$397.65</td><td style="color:#ff6b6b">-7.9%</td><td style="font-size:11.5px"><span style="color:#ff5b6e;font-weight:700">confirmed break</span><div style="color:#7d8ba3;font-size:10.5px;margin-top:2px">+0.0&sigma; cheap &middot; below floor by 7.9%<div style="color:#ff5b6e;font-weight:700">price-confirmed break</div></div></td></tr>
-<tr style="border-top:1px solid #1e2738"><td style="padding:7px 6px;font-weight:700;color:#e7edf8">ETH<div class="mono" style="font-size:9.5px;color:#7d8ba3">crypto</div></td><td>$2,628.51</td><td>—</td><td>—</td><td style="color:#4ade80">+6.1%</td><td><span style='color:#4ade80'>&#9650;</span></td><td>-0.2&sigma</td><td style="font-weight:800">-18</td><td style="color:#f0b357;font-weight:700;font-size:11.5px">TRIM</td><td>$2,071.40</td><td style="color:#4ade80">+26.9%</td><td style="font-size:11.5px"><span style="color:#4ade80;font-weight:700">above floor</span><div style="color:#7d8ba3;font-size:10.5px;margin-top:2px">-0.2&sigma; cheap &middot; above floor by 26.9%</div></td></tr>
-<tr style="border-top:1px solid #1e2738"><td style="padding:7px 6px;font-weight:700;color:#e7edf8">NDX<div class="mono" style="font-size:9.5px;color:#7d8ba3">index</div></td><td>$716.92</td><td>—</td><td>—</td><td style="color:#4ade80">+1.2%</td><td><span style='color:#4ade80'>&#9650;</span></td><td>-0.4&sigma</td><td style="font-weight:800">-33</td><td style="color:#f0b357;font-weight:700;font-size:11.5px">TRIM</td><td>$662.08</td><td style="color:#4ade80">+8.3%</td><td style="font-size:11.5px"><span style="color:#4ade80;font-weight:700">above floor</span><div style="color:#7d8ba3;font-size:10.5px;margin-top:2px">-0.4&sigma; cheap &middot; above floor by 8.3%</div></td></tr>
-<tr style="border-top:1px solid #1e2738"><td style="padding:7px 6px;font-weight:700;color:#e7edf8">AAPL<div class="mono" style="font-size:9.5px;color:#7d8ba3">equity</div></td><td>$337.00</td><td>—</td><td>—</td><td style="color:#4ade80">+3.2%</td><td><span style='color:#4ade80'>&#9650;</span></td><td>-1.7&sigma</td><td style="font-weight:800">-85</td><td style="color:#ff6b6b;font-weight:700;font-size:11.5px">DE-RISK</td><td>$286.08</td><td style="color:#4ade80">+17.8%</td><td style="font-size:11.5px"><span style="color:#4ade80;font-weight:700">above floor</span><div style="color:#7d8ba3;font-size:10.5px;margin-top:2px">-1.7&sigma; cheap &middot; above floor by 17.8%</div></td></tr>
+<tr style="border-top:1px solid #1e2738"><td style="padding:7px 6px;font-weight:700;color:#e7edf8">SUI<div class="mono" style="font-size:9.5px;color:#7d8ba3">crypto</div></td><td>$0.86</td><td>—</td><td>—</td><td style="color:#4ade80">+19.8%</td><td><span style='color:#4ade80'>&#9650;</span></td><td>+0.9&sigma</td><td style="font-weight:800">+44</td><td style="color:#4ade80;font-weight:700;font-size:11.5px">ACCUMULATE</td><td>$0.84</td><td style="color:#4ade80">+2.7%</td><td style="font-size:11.5px"><span style="color:#4ade80;font-weight:700">above floor</span><div style="color:#7d8ba3;font-size:10.5px;margin-top:2px">+0.9&sigma; cheap &middot; above floor by 2.7%</div></td></tr>
+<tr style="border-top:1px solid #1e2738"><td style="padding:7px 6px;font-weight:700;color:#e7edf8">HIMS<div class="mono" style="font-size:9.5px;color:#7d8ba3">equity</div></td><td>$27.99</td><td>—</td><td>—</td><td style="color:#4ade80">+1.7%</td><td><span style='color:#ff6b6b'>&#9660;</span></td><td>+0.5&sigma</td><td style="font-weight:800">+25</td><td style="color:#4ade80;font-weight:700;font-size:11.5px">ACCUMULATE</td><td>$27.98</td><td style="color:#4ade80">+0.0%</td><td style="font-size:11.5px"><span style="color:#4ade80;font-weight:700">above floor</span><div style="color:#7d8ba3;font-size:10.5px;margin-top:2px">+0.5&sigma; cheap &middot; above floor by 0.0%</div></td></tr>
+<tr style="border-top:1px solid #1e2738"><td style="padding:7px 6px;font-weight:700;color:#e7edf8">COIN<div class="mono" style="font-size:9.5px;color:#7d8ba3">equity</div></td><td>$194.25</td><td>—</td><td>—</td><td style="color:#4ade80">+10.8%</td><td><span style='color:#4ade80'>&#9650;</span></td><td>+0.5&sigma</td><td style="font-weight:800">+24</td><td style="color:#4ade80;font-weight:700;font-size:11.5px">ACCUMULATE</td><td>$189.22</td><td style="color:#4ade80">+2.7%</td><td style="font-size:11.5px"><span style="color:#4ade80;font-weight:700">above floor</span><div style="color:#7d8ba3;font-size:10.5px;margin-top:2px">+0.5&sigma; cheap &middot; above floor by 2.7%</div></td></tr>
+<tr style="border-top:1px solid #1e2738"><td style="padding:7px 6px;font-weight:700;color:#e7edf8">CRYPTO<div class="mono" style="font-size:9.5px;color:#7d8ba3">sleeve</div></td><td>$245.78</td><td>—</td><td>—</td><td style="color:#4ade80">+7.6%</td><td><span style='color:#4ade80'>&#9650;</span></td><td>+0.3&sigma</td><td style="font-weight:800">+12</td><td style="color:#9fb0c9;font-weight:700;font-size:11.5px">HOLD</td><td>$197.04</td><td style="color:#4ade80">+24.7%</td><td style="font-size:11.5px"><span style="color:#4ade80;font-weight:700">above floor</span><div style="color:#7d8ba3;font-size:10.5px;margin-top:2px">+0.3&sigma; cheap &middot; above floor by 24.7%</div></td></tr>
+<tr style="border-top:1px solid #1e2738"><td style="padding:7px 6px;font-weight:700;color:#e7edf8">BTC<div class="mono" style="font-size:9.5px;color:#7d8ba3">crypto</div></td><td>$81,335</td><td>—</td><td>—</td><td style="color:#4ade80">+4.0%</td><td><span style='color:#4ade80'>&#9650;</span></td><td>+0.3&sigma</td><td style="font-weight:800">+10</td><td style="color:#9fb0c9;font-weight:700;font-size:11.5px">HOLD</td><td>$70,498</td><td style="color:#4ade80">+15.4%</td><td style="font-size:11.5px"><span style="color:#4ade80;font-weight:700">above floor</span><div style="color:#7d8ba3;font-size:10.5px;margin-top:2px">+0.3&sigma; cheap &middot; above floor by 15.4%</div></td></tr>
+<tr style="border-top:1px solid #1e2738"><td style="padding:7px 6px;font-weight:700;color:#e7edf8">SOL<div class="mono" style="font-size:9.5px;color:#7d8ba3">crypto</div></td><td>$111.79</td><td>—</td><td>—</td><td style="color:#4ade80">+9.0%</td><td><span style='color:#4ade80'>&#9650;</span></td><td>+0.1&sigma</td><td style="font-weight:800">+2</td><td style="color:#9fb0c9;font-weight:700;font-size:11.5px">HOLD</td><td>$83.71</td><td style="color:#4ade80">+33.5%</td><td style="font-size:11.5px"><span style="color:#4ade80;font-weight:700">above floor</span><div style="color:#7d8ba3;font-size:10.5px;margin-top:2px">+0.1&sigma; cheap &middot; above floor by 33.5%</div></td></tr>
+<tr style="border-top:1px solid #1e2738"><td style="padding:7px 6px;font-weight:700;color:#e7edf8">TSLA<div class="mono" style="font-size:9.5px;color:#7d8ba3">equity</div></td><td>$364.27</td><td>—</td><td>—</td><td style="color:#ff6b6b">-0.3%</td><td><span style='color:#4ade80'>&#9650;</span></td><td>+0.1&sigma</td><td style="font-weight:800">-2</td><td style="color:#f0b357;font-weight:700;font-size:11.5px">TRIM</td><td>$397.33</td><td style="color:#ff6b6b">-8.3%</td><td style="font-size:11.5px"><span style="color:#ff5b6e;font-weight:700">confirmed break</span><div style="color:#7d8ba3;font-size:10.5px;margin-top:2px">+0.1&sigma; cheap &middot; below floor by 8.3%<div style="color:#ff5b6e;font-weight:700">price-confirmed break</div></div></td></tr>
+<tr style="border-top:1px solid #1e2738"><td style="padding:7px 6px;font-weight:700;color:#e7edf8">ETH<div class="mono" style="font-size:9.5px;color:#7d8ba3">crypto</div></td><td>$2,640.97</td><td>—</td><td>—</td><td style="color:#4ade80">+5.0%</td><td><span style='color:#4ade80'>&#9650;</span></td><td>-0.2&sigma</td><td style="font-weight:800">-19</td><td style="color:#f0b357;font-weight:700;font-size:11.5px">TRIM</td><td>$2,074.61</td><td style="color:#4ade80">+27.3%</td><td style="font-size:11.5px"><span style="color:#4ade80;font-weight:700">above floor</span><div style="color:#7d8ba3;font-size:10.5px;margin-top:2px">-0.2&sigma; cheap &middot; above floor by 27.3%</div></td></tr>
+<tr style="border-top:1px solid #1e2738"><td style="padding:7px 6px;font-weight:700;color:#e7edf8">NDX<div class="mono" style="font-size:9.5px;color:#7d8ba3">index</div></td><td>$721.45</td><td>—</td><td>—</td><td style="color:#4ade80">+0.9%</td><td><span style='color:#4ade80'>&#9650;</span></td><td>-0.5&sigma</td><td style="font-weight:800">-36</td><td style="color:#f0b357;font-weight:700;font-size:11.5px">TRIM</td><td>$662.60</td><td style="color:#4ade80">+8.9%</td><td style="font-size:11.5px"><span style="color:#4ade80;font-weight:700">above floor</span><div style="color:#7d8ba3;font-size:10.5px;margin-top:2px">-0.5&sigma; cheap &middot; above floor by 8.9%</div></td></tr>
+<tr style="border-top:1px solid #1e2738"><td style="padding:7px 6px;font-weight:700;color:#e7edf8">AAPL<div class="mono" style="font-size:9.5px;color:#7d8ba3">equity</div></td><td>$336.13</td><td>—</td><td>—</td><td style="color:#4ade80">+1.2%</td><td><span style='color:#4ade80'>&#9650;</span></td><td>-1.7&sigma</td><td style="font-weight:800">-84</td><td style="color:#ff6b6b;font-weight:700;font-size:11.5px">DE-RISK</td><td>$286.34</td><td style="color:#4ade80">+17.4%</td><td style="font-size:11.5px"><span style="color:#4ade80;font-weight:700">above floor</span><div style="color:#7d8ba3;font-size:10.5px;margin-top:2px">-1.7&sigma; cheap &middot; above floor by 17.4%</div></td></tr>
 </table></div>
 
 <div style="background:#101724;border-radius:14px;padding:12px 16px;margin-top:12px">
@@ -269,7 +295,106 @@
  SIGN CONVENTION NOTE: this page scores CHEAPNESS (+ = cheap = right); the sibling map
  &ldquo;When cheap becomes sell&rdquo; plots RICHNESS &sigma; (+ = rich = left). Same two legs, opposite sign.<br>
  This is a public-data RECONSTRUCTION of the layout &mdash; not GMI&rsquo;s / RV Pro&rsquo;s proprietary book read.<br>
- generated 2026-09-18T20:30:10+00:00 &middot;
+ generated 2026-09-19T11:11:00+00:00 &middot;
  no fetch warnings
 </div>
-</div></body></html>
+</div></div>
+<script>
+/* Refresh button: re-pull the newest PUBLISHED build of this board and swap the
+   page content in place, so a reader can pick up the latest rebuild without a
+   hard reload (scroll position stays put). The underlying data is regenerated
+   by the board's own build job - this button fetches that result. */
+(function () {
+  var btn = document.getElementById('hx-refresh');
+  var toastEl = document.getElementById('hx-toast');
+  var wrap = document.getElementById('hx-wrap');
+  if (!btn || !toastEl || !wrap) { return; }
+  var busy = false, hideTimer = null;
+
+  function toast(msg, isErr) {
+    toastEl.textContent = msg;                     /* text only, never markup */
+    toastEl.className = 'hx-toast show' + (isErr ? ' err' : '');
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(function () { toastEl.className = 'hx-toast'; }, 9000);
+  }
+  function textOf(root) { return (root.textContent || '').replace(/\s+/g, ' ').trim(); }
+  function lastMatch(t, re) {                      /* all matches -> the last one */
+    var out = [], m;
+    re.lastIndex = 0;
+    while ((m = re.exec(t)) !== null) { out.push(m[1]); }
+    return out.length ? out[out.length - 1] : '';
+  }
+  /* The board's own build stamp, for the toast/tooltip only. Some boards quote
+     other dates ("... generated 2022-11-01 ...") above their real stamp, and the
+     real one sits in the footer - so take the LAST date+time, not the first. */
+  function stampOf(root) {
+    var t = textOf(root);
+    var withTime = lastMatch(t, /generated[:\s]+([0-9]{4}-[0-9]{2}-[0-9]{2}[T ][0-9]{2}:[0-9]{2}[0-9:.+TZ-]*)/gi);
+    if (withTime) { return withTime; }
+    return lastMatch(t, /generated[:\s]+([0-9]{4}-[0-9]{2}-[0-9]{2})/gi);
+  }
+  /* Change detection is a hash of the whole board text, NOT the stamp: that way
+     any real difference between the loaded page and the freshly fetched one is
+     reported as a refresh (and an unchanged board is reported as up to date). */
+  function hashOf(root) {
+    var t = textOf(root), h = 5381;
+    for (var i = 0; i < t.length; i++) { h = ((h << 5) + h + t.charCodeAt(i)) | 0; }
+    return h + ':' + t.length;
+  }
+  function clock() {
+    try { return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); }
+    catch (e) { return new Date().toTimeString().slice(0, 5); }
+  }
+  function done() { busy = false; btn.disabled = false; btn.classList.remove('spin'); }
+
+  function refresh() {
+    if (busy) { return; }
+    busy = true;
+    btn.disabled = true;
+    btn.classList.add('spin');
+    var before = hashOf(wrap);
+    var url;
+    try {
+      url = new URL(window.location.href);
+      url.searchParams.set('hx', Date.now().toString(36));   /* bust the CDN */
+      url.hash = '';
+    } catch (e) { url = window.location.href; }
+    fetch(String(url), { cache: 'no-store', credentials: 'same-origin' })
+      .then(function (r) {
+        if (!r.ok) { throw new Error('HTTP ' + r.status); }
+        return r.text();
+      })
+      .then(function (text) {
+        var doc = new DOMParser().parseFromString(text, 'text/html');
+        var fresh = doc.getElementById('hx-wrap');
+        if (!fresh) { throw new Error('no board content in the response'); }
+        var after = hashOf(fresh);
+        var stamp = stampOf(fresh);
+        var changed = !!after && after !== before;
+        wrap.innerHTML = fresh.innerHTML;
+        btn.title = 'Last checked ' + clock() + (stamp ? ' - built ' + stamp : '');
+        if (changed) {
+          toast('Data refreshed' + (stamp ? ' - newest published build is ' + stamp : '') +
+                ' (checked ' + clock() + ').');
+        } else {
+          toast('Up to date - no newer published build' + (stamp ? ' than ' + stamp : '') +
+                ' (checked ' + clock() + ').');
+        }
+        done();
+      })
+      .catch(function (e) {
+        toast('Refresh failed (' + (e && e.message ? e.message : 'network error') +
+              '). The board is unchanged.', true);
+        done();
+      });
+  }
+
+  btn.addEventListener('click', refresh);
+  document.addEventListener('keydown', function (e) {
+    var t = e.target || {};
+    if (e.key === 'r' && !e.metaKey && !e.ctrlKey && !e.altKey &&
+        !/^(input|textarea|select)$/i.test(t.tagName || '')) { refresh(); }
+  });
+})();
+</script>
+</body></html>
