@@ -1,6 +1,35 @@
 <!doctype html>
-<html><head><meta charset="utf-8"><meta name="color-scheme" content="dark"><title>The weather for risk</title></head>
-<body style="margin:0;background:#0a0e15">
+<html><head><meta charset="utf-8"><meta name="color-scheme" content="dark"><title>The weather for risk</title><style>
+/* hx-refresh: the floating "Refresh data" control (one per page). */
+.hx-btn { position: fixed; top: 16px; right: 18px; z-index: 50;
+          display: inline-flex; align-items: center; gap: 7px;
+          background: #131a28; color: #cdd7e6; border: 1px solid #2c3850;
+          border-radius: 10px; padding: 8px 13px;
+          font-family: DejaVu Sans Mono, Liberation Mono, monospace;
+          font-size: 12.5px; font-weight: 700; letter-spacing: .04em; cursor: pointer;
+          box-shadow: 0 10px 26px rgba(0,0,0,.5); transition: background .15s, border-color .15s; }
+.hx-btn:hover { background: #182234; border-color: #3d4f70; }
+.hx-btn:active { background: #1d2942; }
+.hx-btn:disabled { opacity: .72; cursor: default; }
+.hx-btn .ic { display: inline-block; font-size: 14.5px; line-height: 1; }
+.hx-btn.spin .ic { animation: hxspin .75s linear infinite; }
+@keyframes hxspin { to { transform: rotate(360deg); } }
+.hx-toast { position: fixed; top: 58px; right: 18px; z-index: 60; max-width: 330px;
+            background: #131a28; border: 1px solid #2c3850; border-radius: 11px;
+            padding: 10px 14px; font-size: 12.4px; line-height: 1.5; color: #b6c0d2;
+            box-shadow: 0 14px 34px rgba(0,0,0,.55); opacity: 0; transform: translateY(-6px);
+            pointer-events: none; transition: opacity .18s ease, transform .18s ease; }
+.hx-toast.show { opacity: 1; transform: translateY(0); }
+.hx-toast.err { border-color: rgba(255,107,138,.5); color: #ff829f; }
+@media (max-width: 820px) {
+  .hx-btn { top: auto; bottom: 15px; right: 15px; }
+  .hx-toast { top: auto; bottom: 64px; right: 15px; left: 15px; max-width: none; }
+}
+</style></head>
+<body style="margin:0;background:#0a0e15"><button class="hx-btn" id="hx-refresh" type="button" title="Re-check the published board">
+  <span class="ic">&#8635;</span><span class="tx">Refresh data</span></button>
+<div class="hx-toast" id="hx-toast" role="status" aria-live="polite"></div>
+<div id="hx-wrap">
 <div style="max-width:1125px;margin:0 auto;padding:26px 30px 30px;font-family:Liberation Sans,DejaVu Sans,FreeSans,Helvetica,Arial,sans-serif;color:#e7edf8;background:#0a0e15">
   <div style="font-family:DejaVu Sans Mono,Liberation Mono,monospace;font-size:11px;letter-spacing:.14em;color:#93a1bb;font-weight:700">THE BACKDROP</div>
   <div style="font-size:31px;font-weight:800;color:#e7edf8;letter-spacing:-.4px;margin:8px 0 10px;line-height:1.15">The weather for risk &mdash; money, growth, conditions, the dollar</div>
@@ -109,4 +138,103 @@ All four inputs and both gauges are recomputed from scratch on every run &mdash;
     generated 2026-09-17T21:59:52+00:00 &middot; public data only (FRED &middot; TradingEconomics &middot; Yahoo &middot; G5 central banks) &middot; warnings: Yahoo DX-Y.NYB: fetch/parse failed; dollar: Yahoo DXY unavailable, using FRED broad dollar
   </div>
 </div>
+</div>
+<script>
+/* Refresh button: re-pull the newest PUBLISHED build of this board and swap the
+   page content in place, so a reader can pick up the latest rebuild without a
+   hard reload (scroll position stays put). The underlying data is regenerated
+   by the board's own build job - this button fetches that result. */
+(function () {
+  var btn = document.getElementById('hx-refresh');
+  var toastEl = document.getElementById('hx-toast');
+  var wrap = document.getElementById('hx-wrap');
+  if (!btn || !toastEl || !wrap) { return; }
+  var busy = false, hideTimer = null;
+
+  function toast(msg, isErr) {
+    toastEl.textContent = msg;                     /* text only, never markup */
+    toastEl.className = 'hx-toast show' + (isErr ? ' err' : '');
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(function () { toastEl.className = 'hx-toast'; }, 9000);
+  }
+  function textOf(root) { return (root.textContent || '').replace(/\s+/g, ' ').trim(); }
+  function lastMatch(t, re) {                      /* all matches -> the last one */
+    var out = [], m;
+    re.lastIndex = 0;
+    while ((m = re.exec(t)) !== null) { out.push(m[1]); }
+    return out.length ? out[out.length - 1] : '';
+  }
+  /* The board's own build stamp, for the toast/tooltip only. Some boards quote
+     other dates ("... generated 2022-11-01 ...") above their real stamp, and the
+     real one sits in the footer - so take the LAST date+time, not the first. */
+  function stampOf(root) {
+    var t = textOf(root);
+    var withTime = lastMatch(t, /generated[:\s]+([0-9]{4}-[0-9]{2}-[0-9]{2}[T ][0-9]{2}:[0-9]{2}[0-9:.+TZ-]*)/gi);
+    if (withTime) { return withTime; }
+    return lastMatch(t, /generated[:\s]+([0-9]{4}-[0-9]{2}-[0-9]{2})/gi);
+  }
+  /* Change detection is a hash of the whole board text, NOT the stamp: that way
+     any real difference between the loaded page and the freshly fetched one is
+     reported as a refresh (and an unchanged board is reported as up to date). */
+  function hashOf(root) {
+    var t = textOf(root), h = 5381;
+    for (var i = 0; i < t.length; i++) { h = ((h << 5) + h + t.charCodeAt(i)) | 0; }
+    return h + ':' + t.length;
+  }
+  function clock() {
+    try { return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); }
+    catch (e) { return new Date().toTimeString().slice(0, 5); }
+  }
+  function done() { busy = false; btn.disabled = false; btn.classList.remove('spin'); }
+
+  function refresh() {
+    if (busy) { return; }
+    busy = true;
+    btn.disabled = true;
+    btn.classList.add('spin');
+    var before = hashOf(wrap);
+    var url;
+    try {
+      url = new URL(window.location.href);
+      url.searchParams.set('hx', Date.now().toString(36));   /* bust the CDN */
+      url.hash = '';
+    } catch (e) { url = window.location.href; }
+    fetch(String(url), { cache: 'no-store', credentials: 'same-origin' })
+      .then(function (r) {
+        if (!r.ok) { throw new Error('HTTP ' + r.status); }
+        return r.text();
+      })
+      .then(function (text) {
+        var doc = new DOMParser().parseFromString(text, 'text/html');
+        var fresh = doc.getElementById('hx-wrap');
+        if (!fresh) { throw new Error('no board content in the response'); }
+        var after = hashOf(fresh);
+        var stamp = stampOf(fresh);
+        var changed = !!after && after !== before;
+        wrap.innerHTML = fresh.innerHTML;
+        btn.title = 'Last checked ' + clock() + (stamp ? ' - built ' + stamp : '');
+        if (changed) {
+          toast('Data refreshed' + (stamp ? ' - newest published build is ' + stamp : '') +
+                ' (checked ' + clock() + ').');
+        } else {
+          toast('Up to date - no newer published build' + (stamp ? ' than ' + stamp : '') +
+                ' (checked ' + clock() + ').');
+        }
+        done();
+      })
+      .catch(function (e) {
+        toast('Refresh failed (' + (e && e.message ? e.message : 'network error') +
+              '). The board is unchanged.', true);
+        done();
+      });
+  }
+
+  btn.addEventListener('click', refresh);
+  document.addEventListener('keydown', function (e) {
+    var t = e.target || {};
+    if (e.key === 'r' && !e.metaKey && !e.ctrlKey && !e.altKey &&
+        !/^(input|textarea|select)$/i.test(t.tagName || '')) { refresh(); }
+  });
+})();
+</script>
 </body></html>
