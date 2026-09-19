@@ -1,1 +1,129 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="color-scheme" content="dark"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Hashio boards</title></head><body style="margin:0;background:#0a0e15;color:#e7edf8;font-family:system-ui,-apple-system,Segoe UI,Helvetica,Arial,sans-serif"><div style="max-width:760px;margin:0 auto;padding:34px 22px 40px"><div style="font-family:ui-monospace,monospace;font-size:11px;font-weight:700;letter-spacing:.14em;color:#a78bfa">HASHIO BOARDS</div><h1 style="font-size:27px;font-weight:800;letter-spacing:-.4px;margin:9px 0 8px">Live public-data boards</h1><div style="font-size:13.5px;line-height:1.65;color:#c3cee0;margin-bottom:22px">Every board is rebuilt from public data on this box and republished here each time its job runs. Newest first.</div><a href="./alpha-risk-monitor.html" style="display:block;text-decoration:none;background:#131a28;border:1px solid #232d40;border-radius:14px;padding:15px 18px;margin-bottom:11px"><div style="font-size:16.5px;font-weight:700;color:#e7edf8">The Alpha Risk Monitor — the live trend board<span style="font-family:ui-monospace,monospace;font-size:10px;font-weight:700;color:#c4b5fd;background:#221c3d;border-radius:999px;padding:3px 9px;margin-left:9px;vertical-align:middle">LATEST</span></div><div style="font-family:ui-monospace,monospace;font-size:11.5px;color:#93a1bb;margin-top:5px">/alpha-risk-monitor.html &nbsp;&middot;&nbsp; published 2026-09-19</div></a><a href="./the-dominoes.html" style="display:block;text-decoration:none;background:#131a28;border:1px solid #232d40;border-radius:14px;padding:15px 18px;margin-bottom:11px"><div style="font-size:16.5px;font-weight:700;color:#e7edf8">The Dominoes — how the cycle falls</div><div style="font-family:ui-monospace,monospace;font-size:11.5px;color:#93a1bb;margin-top:5px">/the-dominoes.html &nbsp;&middot;&nbsp; published 2026-09-19</div></a><a href="./weather-for-risk.html" style="display:block;text-decoration:none;background:#131a28;border:1px solid #232d40;border-radius:14px;padding:15px 18px;margin-bottom:11px"><div style="font-size:16.5px;font-weight:700;color:#e7edf8">The Weather For Risk — money, growth, conditions, the dollar</div><div style="font-family:ui-monospace,monospace;font-size:11.5px;color:#93a1bb;margin-top:5px">/weather-for-risk.html &nbsp;&middot;&nbsp; published 2026-09-19</div></a><a href="./cheap-becomes-sell.html" style="display:block;text-decoration:none;background:#131a28;border:1px solid #232d40;border-radius:14px;padding:15px 18px;margin-bottom:11px"><div style="font-size:16.5px;font-weight:700;color:#e7edf8">When cheap becomes sell — the map, the floors and the judgment layer</div><div style="font-family:ui-monospace,monospace;font-size:11.5px;color:#93a1bb;margin-top:5px">/cheap-becomes-sell.html &nbsp;&middot;&nbsp; published 2026-09-19</div></a><a href="./the-book.html" style="display:block;text-decoration:none;background:#131a28;border:1px solid #232d40;border-radius:14px;padding:15px 18px;margin-bottom:11px"><div style="font-size:16.5px;font-weight:700;color:#e7edf8">The Book — every position, live</div><div style="font-family:ui-monospace,monospace;font-size:11.5px;color:#93a1bb;margin-top:5px">/the-book.html &nbsp;&middot;&nbsp; published 2026-09-19</div></a><a href="./monitor-vs-regime.html" style="display:block;text-decoration:none;background:#131a28;border:1px solid #232d40;border-radius:14px;padding:15px 18px;margin-bottom:11px"><div style="font-size:16.5px;font-weight:700;color:#e7edf8">monitor-vs-regime</div><div style="font-family:ui-monospace,monospace;font-size:11.5px;color:#93a1bb;margin-top:5px">/monitor-vs-regime.html &nbsp;&middot;&nbsp; published 2026-09-19</div></a><div style="font-family:ui-monospace,monospace;font-size:10.5px;color:#7d8ba3;margin-top:20px;line-height:1.7">public data only &middot; auto-published by the hashio-boards job stack</div></div></body></html>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="color-scheme" content="dark"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Hashio boards - the central board page</title><meta name="description" content="Every live Hashio board in one place: regime, cycle, positions, conditions, trend and valuation boards."><style>
+/* hx-refresh: the floating "Refresh data" control (one per page). */
+.hx-btn { position: fixed; top: 16px; right: 18px; z-index: 50;
+          display: inline-flex; align-items: center; gap: 7px;
+          background: #131a28; color: #cdd7e6; border: 1px solid #2c3850;
+          border-radius: 10px; padding: 8px 13px;
+          font-family: DejaVu Sans Mono, Liberation Mono, monospace;
+          font-size: 12.5px; font-weight: 700; letter-spacing: .04em; cursor: pointer;
+          box-shadow: 0 10px 26px rgba(0,0,0,.5); transition: background .15s, border-color .15s; }
+.hx-btn:hover { background: #182234; border-color: #3d4f70; }
+.hx-btn:active { background: #1d2942; }
+.hx-btn:disabled { opacity: .72; cursor: default; }
+.hx-btn .ic { display: inline-block; font-size: 14.5px; line-height: 1; }
+.hx-btn.spin .ic { animation: hxspin .75s linear infinite; }
+@keyframes hxspin { to { transform: rotate(360deg); } }
+.hx-toast { position: fixed; top: 58px; right: 18px; z-index: 60; max-width: 330px;
+            background: #131a28; border: 1px solid #2c3850; border-radius: 11px;
+            padding: 10px 14px; font-size: 12.4px; line-height: 1.5; color: #b6c0d2;
+            box-shadow: 0 14px 34px rgba(0,0,0,.55); opacity: 0; transform: translateY(-6px);
+            pointer-events: none; transition: opacity .18s ease, transform .18s ease; }
+.hx-toast.show { opacity: 1; transform: translateY(0); }
+.hx-toast.err { border-color: rgba(255,107,138,.5); color: #ff829f; }
+@media (max-width: 820px) {
+  .hx-btn { top: auto; bottom: 15px; right: 15px; }
+  .hx-toast { top: auto; bottom: 64px; right: 15px; left: 15px; max-width: none; }
+}
+</style></head><body style="margin:0;background:#0a0e15;color:#e7edf8;font-family:system-ui,-apple-system,Segoe UI,Helvetica,Arial,sans-serif"><button class="hx-btn" id="hx-refresh" type="button" title="Re-check the published board">
+  <span class="ic">&#8635;</span><span class="tx">Refresh data</span></button>
+<div class="hx-toast" id="hx-toast" role="status" aria-live="polite"></div>
+<div id="hx-wrap"><div style="max-width:780px;margin:0 auto;padding:34px 22px 44px"><div style="font-family:ui-monospace,monospace;font-size:11px;font-weight:700;letter-spacing:.14em;color:#a78bfa">HASHIO BOARDS</div><h1 style="font-size:29px;font-weight:800;letter-spacing:-.5px;margin:9px 0 8px">All the boards, one page</h1><div style="font-size:14px;line-height:1.65;color:#c3cee0;margin-bottom:14px">Every board below is rebuilt from public data on the box and republished to this site each time its job runs. This page is the bookmark: it always lists the whole set, newest build first.</div><div style="font-family:ui-monospace,monospace;font-size:11.5px;color:#93a1bb;margin-bottom:20px">6 boards &nbsp;&middot;&nbsp; newest build 2026-09-19 14:05 UTC</div><a href="./alpha-risk-monitor.html" target="_blank" rel="noopener" style="display:block;text-decoration:none;background:#131a28;border:1px solid #232d40;border-radius:14px;padding:16px 18px;margin-bottom:11px"><div style="display:flex;align-items:center;flex-wrap:wrap;margin-bottom:6px"><span style="font-family:ui-monospace,monospace;font-size:10px;font-weight:700;letter-spacing:.08em;color:#7dd3fc;background:#7dd3fc1a;border:1px solid #7dd3fc44;border-radius:999px;padding:3px 9px;margin-right:8px;white-space:nowrap">Trend</span><span style="font-size:16.5px;font-weight:700;color:#e7edf8">The Alpha Risk Monitor — the live trend board</span></div><div style="font-size:13.5px;line-height:1.6;color:#c3cee0;margin-bottom:8px">What is actually working right now - the live trend board, ranked.</div><div><span style="font-family:ui-monospace,monospace;font-size:11.5px;color:#93a1bb">/alpha-risk-monitor.html &nbsp;&middot;&nbsp; built <span style="color:#93a1bb">2026-09-19 14:05 UTC</span></span> <span style="font-family:ui-monospace,monospace;font-size:11.5px;color:#a78bfa;font-weight:700">&nbsp;open &rarr;</span></div></a><a href="./the-dominoes.html" target="_blank" rel="noopener" style="display:block;text-decoration:none;background:#131a28;border:1px solid #232d40;border-radius:14px;padding:16px 18px;margin-bottom:11px"><div style="display:flex;align-items:center;flex-wrap:wrap;margin-bottom:6px"><span style="font-family:ui-monospace,monospace;font-size:10px;font-weight:700;letter-spacing:.08em;color:#fcd34d;background:#fcd34d1a;border:1px solid #fcd34d44;border-radius:999px;padding:3px 9px;margin-right:8px;white-space:nowrap">Cycle</span><span style="font-size:16.5px;font-weight:700;color:#e7edf8">The Dominoes — how the cycle falls</span></div><div style="font-size:13.5px;line-height:1.6;color:#c3cee0;margin-bottom:8px">How the cycle falls - the order the dominoes topple in.</div><div><span style="font-family:ui-monospace,monospace;font-size:11.5px;color:#93a1bb">/the-dominoes.html &nbsp;&middot;&nbsp; built <span style="color:#93a1bb">2026-09-19 14:05 UTC</span></span> <span style="font-family:ui-monospace,monospace;font-size:11.5px;color:#a78bfa;font-weight:700">&nbsp;open &rarr;</span></div></a><a href="./weather-for-risk.html" target="_blank" rel="noopener" style="display:block;text-decoration:none;background:#131a28;border:1px solid #232d40;border-radius:14px;padding:16px 18px;margin-bottom:11px"><div style="display:flex;align-items:center;flex-wrap:wrap;margin-bottom:6px"><span style="font-family:ui-monospace,monospace;font-size:10px;font-weight:700;letter-spacing:.08em;color:#5eead4;background:#5eead41a;border:1px solid #5eead444;border-radius:999px;padding:3px 9px;margin-right:8px;white-space:nowrap">Conditions</span><span style="font-size:16.5px;font-weight:700;color:#e7edf8">The Weather For Risk — money, growth, conditions, the dollar</span></div><div style="font-size:13.5px;line-height:1.6;color:#c3cee0;margin-bottom:8px">Money, growth, conditions, the dollar - the weather the risk sits in.</div><div><span style="font-family:ui-monospace,monospace;font-size:11.5px;color:#93a1bb">/weather-for-risk.html &nbsp;&middot;&nbsp; built <span style="color:#93a1bb">2026-09-19 14:05 UTC</span></span> <span style="font-family:ui-monospace,monospace;font-size:11.5px;color:#a78bfa;font-weight:700">&nbsp;open &rarr;</span></div></a><a href="./cheap-becomes-sell.html" target="_blank" rel="noopener" style="display:block;text-decoration:none;background:#131a28;border:1px solid #232d40;border-radius:14px;padding:16px 18px;margin-bottom:11px"><div style="display:flex;align-items:center;flex-wrap:wrap;margin-bottom:6px"><span style="font-family:ui-monospace,monospace;font-size:10px;font-weight:700;letter-spacing:.08em;color:#fca5a5;background:#fca5a51a;border:1px solid #fca5a544;border-radius:999px;padding:3px 9px;margin-right:8px;white-space:nowrap">Valuation</span><span style="font-size:16.5px;font-weight:700;color:#e7edf8">When cheap becomes sell — the map, the floors and the judgment layer</span></div><div style="font-size:13.5px;line-height:1.6;color:#c3cee0;margin-bottom:8px">When cheap becomes sell - the map, the floors and the judgment layer.</div><div><span style="font-family:ui-monospace,monospace;font-size:11.5px;color:#93a1bb">/cheap-becomes-sell.html &nbsp;&middot;&nbsp; built <span style="color:#93a1bb">2026-09-19 14:05 UTC</span></span> <span style="font-family:ui-monospace,monospace;font-size:11.5px;color:#a78bfa;font-weight:700">&nbsp;open &rarr;</span></div></a><a href="./the-book.html" target="_blank" rel="noopener" style="display:block;text-decoration:none;background:#131a28;border:1px solid #232d40;border-radius:14px;padding:16px 18px;margin-bottom:11px"><div style="display:flex;align-items:center;flex-wrap:wrap;margin-bottom:6px"><span style="font-family:ui-monospace,monospace;font-size:10px;font-weight:700;letter-spacing:.08em;color:#86efac;background:#86efac1a;border:1px solid #86efac44;border-radius:999px;padding:3px 9px;margin-right:8px;white-space:nowrap">Positions</span><span style="font-size:16.5px;font-weight:700;color:#e7edf8">The Book — every position, live</span></div><div style="font-size:13.5px;line-height:1.6;color:#c3cee0;margin-bottom:8px">Every position, live - sizing, cost, and where the risk actually sits.</div><div><span style="font-family:ui-monospace,monospace;font-size:11.5px;color:#93a1bb">/the-book.html &nbsp;&middot;&nbsp; built <span style="color:#93a1bb">2026-09-19 14:05 UTC</span></span> <span style="font-family:ui-monospace,monospace;font-size:11.5px;color:#a78bfa;font-weight:700">&nbsp;open &rarr;</span></div></a><a href="./monitor-vs-regime.html" target="_blank" rel="noopener" style="display:block;text-decoration:none;background:#131a28;border:1px solid #232d40;border-radius:14px;padding:16px 18px;margin-bottom:11px"><div style="display:flex;align-items:center;flex-wrap:wrap;margin-bottom:6px"><span style="font-family:ui-monospace,monospace;font-size:10px;font-weight:700;letter-spacing:.08em;color:#c4b5fd;background:#c4b5fd1a;border:1px solid #c4b5fd44;border-radius:999px;padding:3px 9px;margin-right:8px;white-space:nowrap">Regime</span><span style="font-size:16.5px;font-weight:700;color:#e7edf8">monitor-vs-regime</span></div><div style="font-size:13.5px;line-height:1.6;color:#c3cee0;margin-bottom:8px">Is the tape trading the cycle or fighting it? Monitor vs regime, side by side.</div><div><span style="font-family:ui-monospace,monospace;font-size:11.5px;color:#93a1bb">/monitor-vs-regime.html &nbsp;&middot;&nbsp; built <span style="color:#93a1bb">2026-09-19 13:56 UTC</span></span> <span style="font-family:ui-monospace,monospace;font-size:11.5px;color:#a78bfa;font-weight:700">&nbsp;open &rarr;</span></div></a><div style="border-top:1px solid #1b2434;margin-top:22px;padding-top:14px;font-family:ui-monospace,monospace;font-size:10.5px;color:#7d8ba3;line-height:1.75">public data only &middot; auto-published by the hashio-boards job stack<br>this page: <span style="color:#93a1bb">/index.html</span> and <span style="color:#93a1bb">/hub.html</span> &middot; <a href="./boards.json" style="color:#a78bfa;text-decoration:none">/boards.json</a> (registry)</div></div></div>
+<script>
+/* Refresh button: re-pull the newest PUBLISHED build of this board and swap the
+   page content in place, so a reader can pick up the latest rebuild without a
+   hard reload (scroll position stays put). The underlying data is regenerated
+   by the board's own build job - this button fetches that result. */
+(function () {
+  var btn = document.getElementById('hx-refresh');
+  var toastEl = document.getElementById('hx-toast');
+  var wrap = document.getElementById('hx-wrap');
+  if (!btn || !toastEl || !wrap) { return; }
+  var busy = false, hideTimer = null;
+
+  function toast(msg, isErr) {
+    toastEl.textContent = msg;                     /* text only, never markup */
+    toastEl.className = 'hx-toast show' + (isErr ? ' err' : '');
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(function () { toastEl.className = 'hx-toast'; }, 9000);
+  }
+  function textOf(root) { return (root.textContent || '').replace(/\s+/g, ' ').trim(); }
+  function lastMatch(t, re) {                      /* all matches -> the last one */
+    var out = [], m;
+    re.lastIndex = 0;
+    while ((m = re.exec(t)) !== null) { out.push(m[1]); }
+    return out.length ? out[out.length - 1] : '';
+  }
+  /* The board's own build stamp, for the toast/tooltip only. Some boards quote
+     other dates ("... generated 2022-11-01 ...") above their real stamp, and the
+     real one sits in the footer - so take the LAST date+time, not the first. */
+  function stampOf(root) {
+    var t = textOf(root);
+    var withTime = lastMatch(t, /generated[:\s]+([0-9]{4}-[0-9]{2}-[0-9]{2}[T ][0-9]{2}:[0-9]{2}[0-9:.+TZ-]*)/gi);
+    if (withTime) { return withTime; }
+    return lastMatch(t, /generated[:\s]+([0-9]{4}-[0-9]{2}-[0-9]{2})/gi);
+  }
+  /* Change detection is a hash of the whole board text, NOT the stamp: that way
+     any real difference between the loaded page and the freshly fetched one is
+     reported as a refresh (and an unchanged board is reported as up to date). */
+  function hashOf(root) {
+    var t = textOf(root), h = 5381;
+    for (var i = 0; i < t.length; i++) { h = ((h << 5) + h + t.charCodeAt(i)) | 0; }
+    return h + ':' + t.length;
+  }
+  function clock() {
+    try { return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); }
+    catch (e) { return new Date().toTimeString().slice(0, 5); }
+  }
+  function done() { busy = false; btn.disabled = false; btn.classList.remove('spin'); }
+
+  function refresh() {
+    if (busy) { return; }
+    busy = true;
+    btn.disabled = true;
+    btn.classList.add('spin');
+    var before = hashOf(wrap);
+    var url;
+    try {
+      url = new URL(window.location.href);
+      url.searchParams.set('hx', Date.now().toString(36));   /* bust the CDN */
+      url.hash = '';
+    } catch (e) { url = window.location.href; }
+    fetch(String(url), { cache: 'no-store', credentials: 'same-origin' })
+      .then(function (r) {
+        if (!r.ok) { throw new Error('HTTP ' + r.status); }
+        return r.text();
+      })
+      .then(function (text) {
+        var doc = new DOMParser().parseFromString(text, 'text/html');
+        var fresh = doc.getElementById('hx-wrap');
+        if (!fresh) { throw new Error('no board content in the response'); }
+        var after = hashOf(fresh);
+        var stamp = stampOf(fresh);
+        var changed = !!after && after !== before;
+        wrap.innerHTML = fresh.innerHTML;
+        btn.title = 'Last checked ' + clock() + (stamp ? ' - built ' + stamp : '');
+        if (changed) {
+          toast('Data refreshed' + (stamp ? ' - newest published build is ' + stamp : '') +
+                ' (checked ' + clock() + ').');
+        } else {
+          toast('Up to date - no newer published build' + (stamp ? ' than ' + stamp : '') +
+                ' (checked ' + clock() + ').');
+        }
+        done();
+      })
+      .catch(function (e) {
+        toast('Refresh failed (' + (e && e.message ? e.message : 'network error') +
+              '). The board is unchanged.', true);
+        done();
+      });
+  }
+
+  btn.addEventListener('click', refresh);
+  document.addEventListener('keydown', function (e) {
+    var t = e.target || {};
+    if (e.key === 'r' && !e.metaKey && !e.ctrlKey && !e.altKey &&
+        !/^(input|textarea|select)$/i.test(t.tagName || '')) { refresh(); }
+  });
+})();
+</script>
+</body></html>
