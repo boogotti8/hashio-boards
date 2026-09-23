@@ -91,6 +91,18 @@
       <span style="font-family:DejaVu Sans Mono,Liberation Mono,monospace;font-size:11px;color:#93a1bb;background:#18202e;border-radius:7px;padding:4px 8px">where we are in the ~5.6yr refinancing cycle</span>
     </div>
     <svg viewBox="0 0 1010 240" width="100%" style="display:block">
+  <defs><style>
+    @keyframes wfrPulse { 0% { transform: scale(.55); opacity: .45 }
+                          80% { transform: scale(2.1); opacity: 0 }
+                          100% { transform: scale(2.1); opacity: 0 } }
+    @keyframes wfrCore { 0%,100% { transform: scale(1) } 50% { transform: scale(1.16) } }
+    .wfr-ring { transform-box: fill-box; transform-origin: center; opacity: 0;
+                animation: wfrPulse 2.6s cubic-bezier(.2,.6,.35,1) infinite both }
+    .wfr-ring-2 { animation-delay: 1.3s }
+    .wfr-core { transform-box: fill-box; transform-origin: center;
+                animation: wfrCore 2.6s ease-in-out infinite }
+    @media (prefers-reduced-motion: reduce) { .wfr-ring, .wfr-core { animation: none } }
+</style></defs>
   <line x1="44" y1="196.0" x2="970" y2="196.0" stroke="#1e2739" stroke-width="1"/><line x1="44" y1="153.5" x2="970" y2="153.5" stroke="#1e2739" stroke-width="1"/><line x1="44" y1="111.0" x2="970" y2="111.0" stroke="#1e2739" stroke-width="1"/><line x1="44" y1="68.5" x2="970" y2="68.5" stroke="#1e2739" stroke-width="1"/><line x1="44" y1="26.0" x2="970" y2="26.0" stroke="#1e2739" stroke-width="1"/>
   <path d="M 44.0,196.0 L 50.0,196.0 L 56.0,195.9 L 62.0,195.7 L 67.9,195.5 L 73.9,195.3 L 79.9,195.0 L 85.9,194.6 L 91.9,194.1 L 97.9,193.7 L 103.8,193.1 L 109.8,192.5 L 115.8,191.8 L 121.8,191.1 L 127.8,190.4 L 133.8,189.5 L 139.7,188.7 L 145.7,187.7 L 151.7,186.7 L 157.7,185.7 L 163.7,184.6 L 169.7,183.5 L 175.6,182.3 L 181.6,181.1 L 187.6,179.8 L 193.6,178.4 L 199.6,177.1 L 205.6,175.6 L 211.5,174.2 L 217.5,172.7 L 223.5,171.1 L 229.5,169.5 L 235.5,167.9 L 241.5,166.2 L 247.4,164.5 L 253.4,162.7 L 259.4,161.0 L 265.4,159.1 L 271.4,157.3 L 277.4,155.4 L 283.3,153.5 L 289.3,151.6 L 295.3,149.6 L 301.3,147.6 L 307.3,145.6 L 313.3,143.5 L 319.2,141.5 L 325.2,139.4 L 331.2,137.3 L 337.2,135.1 L 343.2,133.0 L 349.2,130.8 L 355.1,128.7 L 361.1,126.5 L 367.1,124.3 L 373.1,122.1 L 379.1,119.9 L 385.1,117.7 L 391.0,115.4 L 397.0,113.2 L 403.0,111.0 L 409.0,108.8 L 415.0,106.6 L 421.0,104.3 L 426.9,102.1 L 432.9,99.9 L 438.9,97.7 L 444.9,95.5 L 450.9,93.3 L 456.9,91.2 L 462.8,89.0 L 468.8,86.9 L 474.8,84.7 L 480.8,82.6 L 486.8,80.5 L 492.8,78.5 L 498.7,76.4 L 504.7,74.4 L 510.7,72.4 L 516.7,70.4 L 522.7,68.5 L 528.7,66.6 L 534.6,64.7 L 540.6,62.9 L 546.6,61.0 L 552.6,59.3 L 558.6,57.5 L 564.6,55.8 L 570.5,54.1 L 576.5,52.5 L 582.5,50.9 L 588.5,49.3 L 594.5,47.8 L 600.5,46.4 L 606.4,44.9 L 612.4,43.6 L 618.4,42.2 L 624.4,40.9 L 630.4,39.7 L 636.4,38.5 L 642.3,37.4 L 648.3,36.3 L 654.3,35.3 L 660.3,34.3 L 666.3,33.3 L 672.3,32.5 L 678.2,31.6 L 684.2,30.9 L 690.2,30.2 L 696.2,29.5 L 702.2,28.9 L 708.2,28.3 L 714.1,27.9 L 720.1,27.4 L 726.1,27.0 L 732.1,26.7 L 738.1,26.5 L 744.1,26.3 L 750.0,26.1 L 756.0,26.0 L 762.0,26.0" fill="none" stroke="#f2f6fd" stroke-width="2.6" stroke-linecap="round"/>
   <path d="M 762.0,26.0 L 765.5,26.1 L 768.9,26.5 L 772.4,27.0 L 775.9,27.9 L 779.3,28.9 L 782.8,30.2 L 786.3,31.6 L 789.7,33.3 L 793.2,35.3 L 796.7,37.4 L 800.1,39.7 L 803.6,42.2 L 807.1,44.9 L 810.5,47.8 L 814.0,50.9 L 817.5,54.1 L 820.9,57.5 L 824.4,61.0 L 827.9,64.7 L 831.3,68.5 L 834.8,72.4 L 838.3,76.4 L 841.7,80.5 L 845.2,84.7 L 848.7,89.0 L 852.1,93.3 L 855.6,97.7 L 859.1,102.1 L 862.5,106.6 L 866.0,111.0 L 869.5,115.4 L 872.9,119.9 L 876.4,124.3 L 879.9,128.7 L 883.3,133.0 L 886.8,137.3 L 890.3,141.5 L 893.7,145.6 L 897.2,149.6 L 900.7,153.5 L 904.1,157.3 L 907.6,161.0 L 911.1,164.5 L 914.5,167.9 L 918.0,171.1 L 921.5,174.2 L 924.9,177.1 L 928.4,179.8 L 931.9,182.3 L 935.3,184.6 L 938.8,186.7 L 942.3,188.7 L 945.7,190.4 L 949.2,191.8 L 952.7,193.1 L 956.1,194.1 L 959.6,195.0 L 963.1,195.5 L 966.5,195.9 L 970.0,196.0" fill="none" stroke="#93a1bb" stroke-width="2" stroke-dasharray="5 5"/>
@@ -102,7 +114,9 @@
   <text x="872.4" y="-2.0" font-family="DejaVu Sans Mono,Liberation Mono,monospace"
         font-size="12" fill="#ff6ec7" text-anchor="end">"extension scenario"</text>
   <circle cx="689.8" cy="30.2" r="13" fill="#ff6ec7" opacity="0.18"/>
-  <circle cx="689.8" cy="30.2" r="7" fill="#ff6ec7" stroke="#101724" stroke-width="2.5"/>
+  <circle class="wfr-ring" cx="689.8" cy="30.2" r="13" fill="#ff6ec7"/>
+  <circle class="wfr-ring wfr-ring-2" cx="689.8" cy="30.2" r="13" fill="#ff6ec7"/>
+  <circle class="wfr-core" cx="689.8" cy="30.2" r="7" fill="#ff6ec7" stroke="#101724" stroke-width="2.5"/>
   <line x1="689.8" y1="44.2" x2="689.8" y2="208.0"
         stroke="#ff6ec7" stroke-width="1" stroke-dasharray="3 3"/>
   <text x="671.8" y="24.2" font-family="DejaVu Sans Mono,Liberation Mono,monospace"
