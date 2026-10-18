@@ -7,14 +7,16 @@
  table td { font-size:12.5px; }
  h1.board-title { font-size:33px; font-weight:800; letter-spacing:-0.4px; line-height:1.15; margin:6px 0 4px; padding-right:185px; }
  .toprow { display:flex; flex-wrap:wrap; gap:10px; margin:16px 0 14px; align-items:stretch; }
- .toprow .vcard { flex:1 1 340px; min-width:0; border-radius:14px; padding:12px 16px; }
- .toprow .mcard { flex:0 0 250px; min-width:0; width:250px; border-radius:14px; padding:12px 16px; }
+ .toprow .vcard { flex:1 1 340px; min-width:0; box-sizing:border-box; border-radius:14px; padding:12px 16px; }
+ .toprow .mcard { flex:0 0 250px; min-width:0; width:250px; box-sizing:border-box; border-radius:14px; padding:12px 16px; }
  .howto { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; font-size:12.5px; line-height:1.55; }
  .tablewrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
- @media (max-width:820px) {
-  h1.board-title { font-size:24px; padding-right:0; }
+ @media (max-width:1000px) {
   .toprow { flex-direction:column; }
   .toprow .mcard { flex:1 1 auto; width:auto; }
+ }
+ @media (max-width:820px) {
+  h1.board-title { font-size:24px; padding-right:0; }
   .howto { grid-template-columns:1fr; }
   .tablewrap table { min-width:760px; }
  }
