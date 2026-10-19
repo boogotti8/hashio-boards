@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark">
 <title>The Dominoes</title>
 <style>
   * { box-sizing: border-box; }
   html, body { margin:0; padding:0; background:#0a0e15; }
   body { font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-         color:#e7edf8; -webkit-font-smoothing:antialiased; }
-  .page { width:1180px; margin:0 auto; padding:34px 40px 30px; }
+         color:#e7edf8; -webkit-font-smoothing:antialiased; overflow-wrap:break-word; }
+  .page { width:100%; max-width:1180px; margin:0 auto; padding:34px 40px 30px; }
   .topeyebrow { font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:#7d8ba3; font-weight:700; }
   h1 { font-size:31px; line-height:1.2; margin:10px 0 16px; font-weight:750; letter-spacing:-.015em;
        padding-right:185px; }
-  @media (max-width:820px) { h1 { padding-right:0; } }
   .timeline { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin:0 0 14px; }
   .tl { font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:#a78bfa; font-weight:800; }
   .tl span.ar { color:#7d8ba3; font-weight:600; letter-spacing:.02em; text-transform:none;
@@ -87,6 +87,34 @@
   .meth li { font-size:10.5px; line-height:1.6; color:#93a1bb; margin-bottom:5px; }
   .warn { font-size:10.5px; color:#f0b357; background:#241d12; border:1px solid #3a2f16;
           border-radius:8px; padding:8px 12px; margin-top:10px; line-height:1.55; }
+
+  /* Responsive overrides LAST: same specificity as the base rules above, so a
+     media block placed earlier would simply be overridden by them. */
+  /* Tablet: three 41px-value cards and the 1fr/2fr split stop fitting, so the
+     grid drops to two columns and the FCI+callout column spans the row. */
+  @media (max-width:1000px) {
+    .page { padding:30px 26px 26px; }
+    .row1 { grid-template-columns:1fr 1fr; }
+    .row1 > .col { grid-column:1 / -1; display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .strip { grid-template-columns:1fr; }
+    /* The cards are 2-up here, so the 3-up label grid no longer lines up with
+       them: lay the chain out as an inline legend instead. */
+    .timeline { display:flex; flex-wrap:wrap; gap:6px 18px; }
+  }
+  /* Phone: one column everywhere, and the timeline becomes a vertical chain. */
+  @media (max-width:820px) {
+    h1 { padding-right:0; font-size:26px; }
+    .page { padding:24px 16px 26px; }
+    .row1 { grid-template-columns:1fr; }
+    .row1 > .col { grid-template-columns:1fr; }
+    .row2 { grid-template-columns:1fr; }
+    .timeline { display:grid; grid-template-columns:1fr; gap:8px; }
+    .tl span.ar { display:block; margin:2px 0 0; }
+    .big { font-size:34px; }
+    .panel { min-height:0; }
+    .phaseword { font-size:27px; }
+    .cardfoot { flex-wrap:wrap; }
+  }
 </style><style>
 /* hx-refresh: the fixed top-right control cluster (one per page):
    "All boards" -> the hub page, and "Refresh data". */
@@ -163,28 +191,28 @@ a.hx-btn { text-decoration: none; }
       <div class="card panel">
         <div class="eyebrow">Financial Conditions (FCI ex-oil)</div>
         <div class="sub">index (higher = looser) &middot; daily</div>
-        <div class="big">41.99 <span class="arw down">&#9660;</span></div>
-        <div class="deltas"><span class="dchip down">&Delta;1m -7.19</span>
-          <span class="dchip down">&Delta;6m -12.08</span></div>
-        <div class="note">24m peak 58.4
-          <span class="dim">(2026-02-27)</span></div>
-        <div class="sparkwrap"><svg viewBox="0 0 330 52" width="100%" height="100%" preserveAspectRatio="none" class="spark"><polyline points="4.0,21.2 5.2,19.8 6.5,22.0 7.7,22.1 9.0,24.0 10.2,26.2 11.5,24.6 12.7,24.6 13.9,22.6 15.2,20.6 16.4,21.2 17.7,20.3 18.9,21.5 20.2,21.4 21.4,22.3 22.6,22.5 23.9,21.4 25.1,20.0 26.4,21.0 27.6,26.8 28.9,27.1 30.1,27.9 31.4,28.6 32.6,30.2 33.8,28.3 35.1,26.7 36.3,26.7 37.6,23.9 38.8,22.6 40.1,24.7 41.3,25.7 42.5,26.0 43.8,27.6 45.0,27.7 46.3,27.5 47.5,27.2 48.8,25.3 50.0,23.3 51.2,22.2 52.5,22.9 53.7,24.2 55.0,20.4 56.2,21.1 57.5,22.0 58.7,23.4 59.9,23.1 61.2,21.3 62.4,17.1 63.7,19.3 64.9,17.9 66.2,16.8 67.4,18.5 68.6,16.7 69.9,18.5 71.1,17.5 72.4,16.6 73.6,14.5 74.9,14.1 76.1,14.1 77.4,14.1 78.6,16.7 79.8,16.2 81.1,15.6 82.3,16.8 83.6,16.2 84.8,18.8 86.1,19.5 87.3,18.2 88.5,18.6 89.8,16.3 91.0,17.4 92.3,20.4 93.5,19.5 94.8,17.1 96.0,16.5 97.2,14.4 98.5,12.2 99.7,12.3 101.0,13.3 102.2,12.2 103.5,13.4 104.7,15.3 105.9,14.4 107.2,15.1 108.4,11.9 109.7,11.7 110.9,11.0 112.2,8.8 113.4,9.7 114.6,6.7 115.9,5.5 117.1,5.9 118.4,6.9 119.6,7.0 120.9,6.9 122.1,5.6 123.4,5.8 124.6,5.7 125.8,5.2 127.1,4.0 128.3,7.2 129.6,10.6 130.8,9.3 132.1,13.2 133.3,13.4 134.5,12.6 135.8,10.2 137.0,14.8 138.3,20.4 139.5,25.4 140.8,20.0 142.0,17.4 143.2,20.2 144.5,21.8 145.7,27.3 147.0,23.3 148.2,26.0 149.5,24.3 150.7,28.9 151.9,32.7 153.2,33.4 154.4,29.9 155.7,23.9 156.9,26.0 158.2,28.6 159.4,26.3 160.6,25.2 161.9,16.0 163.1,15.5 164.4,16.3 165.6,16.3 166.9,12.5 168.1,14.0 169.4,15.4 170.6,11.9 171.8,12.0 173.1,14.8 174.3,15.2 175.6,16.8 176.8,15.9 178.1,16.6 179.3,17.8 180.5,20.7 181.8,18.4 183.0,17.5 184.3,20.8 185.5,19.5 186.8,16.3 188.0,17.6 189.2,16.7 190.5,18.1 191.7,20.6 193.0,20.4 194.2,21.2 195.5,25.7 196.7,24.7 197.9,27.8 199.2,24.7 200.4,25.9 201.7,25.3 202.9,23.6 204.2,23.2 205.4,21.4 206.6,20.8 207.9,22.9 209.1,21.8 210.4,24.7 211.6,24.0 212.9,29.5 214.1,29.4 215.4,28.3 216.6,28.3 217.8,27.4 219.1,25.0 220.3,23.4 221.6,21.8 222.8,25.1 224.1,30.4 225.3,33.1 226.5,36.4 227.8,35.7 229.0,33.1 230.3,30.7 231.5,31.4 232.8,33.3 234.0,36.6 235.2,33.2 236.5,33.7 237.7,35.2 239.0,38.4 240.2,34.4 241.5,33.2 242.7,36.3 243.9,33.1 245.2,31.1 246.4,31.9 247.7,33.0 248.9,34.3 250.2,35.4 251.4,36.0 252.6,39.2 253.9,37.4 255.1,37.5 256.4,35.2 257.6,37.2 258.9,29.6 260.1,30.3 261.4,29.8 262.6,28.1 263.8,26.9 265.1,28.6 266.3,24.9 267.6,26.3 268.8,26.6 270.1,25.7 271.3,25.3 272.5,24.6 273.8,24.7 275.0,25.2 276.3,22.5 277.5,23.0 278.8,23.6 280.0,23.5 281.2,22.1 282.5,23.1 283.7,22.9 285.0,25.8 286.2,25.4 287.5,26.0 288.7,25.6 289.9,24.3 291.2,24.5 292.4,24.3 293.7,24.4 294.9,25.6 296.2,26.0 297.4,27.5 298.6,28.2 299.9,28.8 301.1,30.9 302.4,32.5 303.6,31.7 304.9,32.7 306.1,36.5 307.4,40.1 308.6,38.1 309.8,41.6 311.1,44.1 312.3,43.7 313.6,48.0 314.8,46.4 316.1,45.9 317.3,42.5 318.5,45.6 319.8,46.5 321.0,47.3 322.3,47.3 323.5,47.2 324.8,47.3 326.0,47.0" fill="none" stroke="#f2f6fd" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/><polyline points="326.0,47.0 326.0,47.02" fill="none" stroke="#f2f6fd" stroke-width="5" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>
+        <div class="big">42.43 <span class="arw down">&#9660;</span></div>
+        <div class="deltas"><span class="dchip down">&Delta;1m -6.54</span>
+          <span class="dchip down">&Delta;6m -12.98</span></div>
+        <div class="note">24m peak 58.44
+          <span class="dim">(Feb 2026)</span></div>
+        <div class="sparkwrap"><svg viewBox="0 0 330 52" width="100%" height="100%" preserveAspectRatio="none" class="spark"><polyline points="4.0,19.5 5.2,21.7 6.5,21.8 7.7,23.7 9.0,25.8 10.2,24.3 11.5,24.3 12.7,22.3 13.9,20.3 15.2,20.9 16.4,20.0 17.7,21.2 18.9,21.1 20.2,22.0 21.4,22.1 22.6,21.1 23.9,19.7 25.1,20.7 26.4,26.4 27.6,26.7 28.9,27.4 30.1,28.2 31.4,29.7 32.6,27.9 33.8,26.3 35.1,26.3 36.3,23.5 37.6,22.3 38.8,24.4 40.1,25.3 41.3,25.6 42.5,27.2 43.8,27.3 45.0,27.0 46.3,26.7 47.5,24.9 48.8,22.9 50.0,21.8 51.2,22.6 52.5,23.8 53.7,20.1 55.0,20.8 56.2,21.7 57.5,23.1 58.7,22.8 59.9,21.0 61.2,16.9 62.4,19.0 63.7,17.6 64.9,16.6 66.2,18.2 67.4,16.4 68.6,18.2 69.9,17.2 71.1,16.4 72.4,14.3 73.6,14.0 74.9,13.9 76.1,13.9 77.4,16.5 78.6,16.0 79.8,15.4 81.1,16.5 82.3,16.0 83.6,18.5 84.8,19.2 86.1,18.0 87.3,18.4 88.5,16.1 89.8,17.2 91.0,20.1 92.3,19.2 93.5,16.8 94.8,16.2 96.0,14.2 97.2,12.1 98.5,12.2 99.7,13.1 101.0,12.1 102.2,13.2 103.5,15.1 104.7,14.2 105.9,14.9 107.2,11.8 108.4,11.6 109.7,10.9 110.9,8.7 112.2,9.6 113.4,6.6 114.6,5.5 115.9,5.9 117.1,6.9 118.4,7.0 119.6,6.8 120.9,5.6 122.1,5.7 123.4,5.6 124.6,5.2 125.8,4.0 127.1,7.1 128.3,10.5 129.6,9.2 130.8,13.1 132.1,13.3 133.3,12.4 134.5,10.1 135.8,14.6 137.0,20.1 138.3,25.0 139.5,19.7 140.8,17.1 142.0,19.9 143.2,21.5 144.5,26.9 145.7,22.9 147.0,25.6 148.2,23.9 149.5,28.4 150.7,32.2 151.9,32.9 153.2,29.4 154.4,23.5 155.7,25.7 156.9,28.1 158.2,25.9 159.4,24.9 160.6,15.8 161.9,15.3 163.1,16.1 164.4,16.1 165.6,12.4 166.9,13.9 168.1,15.2 169.4,11.8 170.6,11.8 171.8,14.6 173.1,15.0 174.3,16.6 175.6,15.7 176.8,16.4 178.1,17.5 179.3,20.4 180.5,18.2 181.8,17.3 183.0,20.5 184.3,19.2 185.5,16.0 186.8,17.4 188.0,16.5 189.2,17.9 190.5,20.3 191.7,20.1 193.0,20.9 194.2,25.3 195.5,24.3 196.7,27.4 197.9,24.3 199.2,25.5 200.4,24.9 201.7,23.2 202.9,22.8 204.2,21.1 205.4,20.5 206.6,22.6 207.9,21.5 209.1,24.4 210.4,23.7 211.6,29.1 212.9,29.0 214.1,27.9 215.4,27.8 216.6,27.0 217.8,24.6 219.1,23.1 220.3,21.4 221.6,24.7 222.8,29.9 224.1,32.6 225.3,35.8 226.5,35.1 227.8,32.5 229.0,30.2 230.3,30.9 231.5,32.8 232.8,36.0 234.0,32.7 235.2,33.2 236.5,34.6 237.7,37.8 239.0,33.8 240.2,32.6 241.5,35.7 242.7,32.6 243.9,30.6 245.2,31.4 246.4,32.5 247.7,33.8 248.9,34.8 250.2,35.4 251.4,38.6 252.6,36.8 253.9,36.9 255.1,34.6 256.4,36.6 257.6,29.2 258.9,29.8 260.1,29.4 261.4,27.7 262.6,26.5 263.8,28.2 265.1,24.6 266.3,25.9 267.6,26.2 268.8,25.3 270.1,24.9 271.3,24.2 272.5,24.3 273.8,24.8 275.0,22.2 276.3,22.7 277.5,23.3 278.8,23.2 280.0,21.8 281.2,22.7 282.5,22.6 283.7,25.4 285.0,25.0 286.2,25.6 287.5,25.2 288.7,23.9 289.9,24.1 291.2,24.0 292.4,24.0 293.7,25.2 294.9,25.6 296.2,27.1 297.4,27.8 298.6,28.3 299.9,30.4 301.1,32.0 302.4,31.3 303.6,32.1 304.9,35.9 306.1,39.4 307.4,37.5 308.6,40.9 309.8,43.3 311.1,42.9 312.3,47.2 313.6,45.6 314.8,45.2 316.1,41.8 317.3,44.9 318.5,45.7 319.8,46.6 321.0,46.5 322.3,45.7 323.5,48.0 324.8,46.2 326.0,45.1" fill="none" stroke="#f2f6fd" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/><polyline points="326.0,45.1 326.0,45.12" fill="none" stroke="#f2f6fd" stroke-width="5" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>
         <div class="caption">The earliest domino &mdash; conditions set the cycle ~9 months out.</div>
-        <div class="cardfoot">as of 2026-10-15
+        <div class="cardfoot">as of 2026-10-16
           <a href="https://fred.stlouisfed.org/series/DTWEXBGS">EVIDENCE &#8594;</a></div>
       </div>
       <div class="callout fired">
         Conditions have moved from <b>58.44 (Feb 2026)</b> to
-        <b>41.99</b> &mdash; a six-month change of
-        <b>-12.1</b>, harder than all but ~2% of six-month stretches in the series&rsquo; history.
-        Rolled forward on the ~9-month lead, that move arrives
-        <b>&asymp;Nov 2026 – Jun 2027</b>.
+        <b>42.43</b> &mdash; a <b>16.01-point drawdown</b>. Over the last six months
+        alone the change is <b>-13.0</b>, harder than all but ~1% of six-month stretches in the series&rsquo; history.
+        Rolled forward on the ~9-month lead, that stretch lands
+        <b>&asymp;Nov 2026 – Jul 2027</b>.
         Under the house rule (red = a 5-pt drawdown from the 24-month peak):
-        the official monthly has <b>FIRED</b>
-        the red trigger (drawdown 16.45 from the 2026-02-27 peak).
-        Tail persistence: <b>month 1 of 3</b> (the latest six-month change sits at the
-        1.5% percentile). Attribution: both legs contributing — confirmation satisfied.<br>
-        <span class="dim">raw leg moves since 2026-02-27: dollar +2.75 (+2.3%) &middot; rates +0.78 (+18.1%)</span>
+        the latest reading has <b>FIRED</b>
+        the red trigger (drawdown 16.01 from the Feb 2026 peak).
+        Tail persistence: <b>0 of 3</b> consecutive months in the worst decile (the latest
+        six-month change sits at the 0.6% percentile). Attribution: both legs contributing — confirmation satisfied.<br>
+        <span class="dim">raw leg moves over the last six months: dollar +3.33 (+2.8%) &middot; rates +0.83 (+19.5%)</span>
       </div></div>
   </div>
 
@@ -202,10 +230,10 @@ a.hx-btn { text-decoration: none; }
       </div>
     
       <div class="card nar">
-        <div class="nartext">The business cycle is in EXPANSION today; the ISM sits at 54.5 and has been rising over the past three months; Global liquidity is still rising (+6.1% over the past year) but the pace has eased in recent months; Financial conditions have moved -12.1 points over six months to 42.0, and the board's red trigger is FIRED. Liquidity typically shows up in the business cycle about six months later, and in risk assets about three. Conditions set the cycle roughly nine months out, so that leg is the earliest domino on this board. Net read: MIXED AHEAD.</div>
+        <div class="nartext">The business cycle is in EXPANSION today; the ISM sits at 54.5 and has been rising over the past three months; Global liquidity is still rising (+6.1% over the past year) but the pace has eased in recent months; Financial conditions have moved -13.0 points over six months to 42.4, and the board's red trigger is FIRED. Liquidity typically shows up in the business cycle about six months later, and in risk assets about three. Conditions set the cycle roughly nine months out, so that leg is the earliest domino on this board. Net read: MIXED AHEAD.</div>
         <div class="pillrow">
           <span class="gpill">THE FULL MACHINE READ</span>
-          <span class="dim small">WRITTEN BY THE PIPELINE, NOT A PERSON &middot; 2026-10-17 17:50 UTC</span>
+          <span class="dim small">WRITTEN BY THE PIPELINE, NOT A PERSON &middot; 2026-10-19 21:56 UTC</span>
           <span class="gpill">HOW &amp; WHEN THIS TEXT UPDATES</span>
         </div>
       </div>
@@ -219,11 +247,11 @@ a.hx-btn { text-decoration: none; }
         </div>
         <div class="pill">
           <span class="pklabel">China impulse (PBoC YoY)</span>
-          <span class="pkval">7.13 <span class="pkarrow">&#8599;</span></span>
+          <span class="pkval">7.13 <span class="pkarrow">&#8600;</span></span>
         </div>
         <div class="pill gray">
-          <span class="pklabel">The cycle confirmations
-            (4/4)</span>
+          <span class="pklabel">The cycle confirmations</span>
+          <span class="pkval">4/4</span>
         </div>
       </div>
 
@@ -237,11 +265,11 @@ a.hx-btn { text-decoration: none; }
         <li><span class="tick">&#8594;</span>The business cycle (ISM) is the last domino;
           New Orders turns first inside it</li>
         <li><span class="tick"></span><span class="dim">Tightening window on that lead:
-          <b>Nov 2026 – Jun 2027</b> &middot; generated 2026-10-17 17:50 UTC</span></li>
+          <b>Nov 2026 – Jul 2027</b> &middot; generated 2026-10-19 21:56 UTC</span></li>
       </ul></div>
   </div>
 
-  <div class="meth"><h3>How every number on this board is built</h3><ol><li>ISM Manufacturing PMI: TradingEconomics latest print, chained onto a 13-month ForexFactory backfill (cycle-falls-tracker/ism_history.csv). Each print is filed under the month TradingEconomics NAMES, and its own previous value under the month before it, so a revised or repeated print still lands on the right row.</li><li>ISM New Orders: TradingEconomics — the leading sub-index that turns before headline PMI.</li><li>Financial Conditions (FCI ex-oil): percent-ranked FRED basket DGS10 0.40 / DGS2 0.10 / DTWEXBGS 0.50 against a trailing 1000-day window, mapped 50 − (p − 0.5)·k so 50 = neutral and higher = looser. The scale slope k is fitted once on GMI's published anchors (50.48 on 2026-08-11 and 56.28 on 2026-02-11) and frozen, so the level is comparable to the reference and the history does not rescale as the calendar rolls; the basket rebuild runs each tick.</li><li>Red trigger: house rule — a 5-point drawdown of the FCI ex-oil index from its trailing 24-month monthly peak.</li><li>Lead window: FCI peak month + 9 months through today + 9 months (FCI leads the cycle ~9m).</li><li>Global Liquidity YoY: broad money of US (M2SL) + China (PBoC M2) + euro area (ECB M3) + UK (BoE M4), each grown in local currency and weighted by its USD-converted stock. Local-currency growth avoids double-counting a FX revaluation as liquidity creation. Coverage: Japan omitted (no free keyless monthly feed) — ~97% of the basket's stock. GMI's 6.35% reading is a composite whose construction they do not publish; this is a proxy.</li><li>US Total Liquidity (broad): Fed total assets (WALCL) + US M2 (M2SL), year-on-year %. This construction reproduced the reference's 4.29 on 2026-08-11 exactly.</li><li>China Impulse: PBoC balance sheet, year-on-year % (liquidity_tracker.fetch_pboc).</li><li>Cycle confirmations: four named rules — ISM above 50; ISM up over 3 months; New Orders above 50; global liquidity positive YoY. The chip counts how many currently pass.</li><li>PUBLIC-DATA RECONSTRUCTION of the reference board's STRUCTURE, not GMI's proprietary read. Their unpublished inputs (Global Liquidity composite, house FCI) are proxied and labelled.</li></ol></div>
+  <div class="meth"><h3>How every number on this board is built</h3><ol><li>ISM Manufacturing PMI: TradingEconomics latest print, chained onto the monthly ForexFactory backfill (cycle-falls-tracker/ism_history.csv). Each print is filed under the month TradingEconomics NAMES, and its own previous value under the month before it, so a revised or repeated print still lands on the right row.</li><li>ISM New Orders: TradingEconomics — the leading sub-index that turns before headline PMI.</li><li>Financial Conditions (FCI ex-oil): percent-ranked FRED basket DGS10 0.40 / DGS2 0.10 / DTWEXBGS 0.50 against a trailing 1000-day window, mapped 50 − (p − 0.5)·k so 50 = neutral and higher = looser. The scale slope k is fitted once on GMI's published anchors (50.48 on 2026-08-11 and 56.28 on 2026-02-11) and frozen, so the level is comparable to the reference and the history does not rescale as the calendar rolls; the basket rebuild runs each tick.</li><li>Red trigger: house rule — a 5-point drawdown of the FCI ex-oil index from its trailing 24-month monthly peak.</li><li>Lead window: FCI peak month + 9 months through the latest FCI print + 9 months (FCI leads the cycle ~9m).</li><li>Global Liquidity YoY: broad money of US (M2SL) + China (PBoC M2) + euro area (ECB M3) + UK (BoE M4), each grown in local currency and weighted by its USD-converted stock. Local-currency growth avoids double-counting a FX revaluation as liquidity creation. Coverage: Japan omitted (no free keyless monthly feed) — ~97% of the basket's stock. GMI's 6.35% reading is a composite whose construction they do not publish; this is a proxy.</li><li>US Total Liquidity (broad): Fed total assets (WALCL) + US M2 (M2SL), year-on-year %. This construction reproduced the reference's 4.29 on 2026-08-11 exactly.</li><li>China Impulse: PBoC balance sheet, year-on-year % (liquidity_tracker.fetch_pboc).</li><li>Cycle confirmations: four named rules — ISM above 50; ISM up over 3 months; New Orders above 50; global liquidity positive YoY. The chip counts how many currently pass.</li><li>PUBLIC-DATA RECONSTRUCTION of the reference board's STRUCTURE, not GMI's proprietary read. Their unpublished inputs (Global Liquidity composite, house FCI) are proxied and labelled.</li></ol></div>
 
 </div></div>
 <script>
